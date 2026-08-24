@@ -237,8 +237,9 @@
   .about-statement em{font-style:normal; color:var(--ink-dim);}
   .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; margin-top:72px; align-items:end;}
   @media(max-width:900px){.about-grid{grid-template-columns:1fr; gap:40px;}}
-  .about-img{position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/5;}
-  .about-copy p{font-size:16px; line-height:1.75; color:#c9c7c1; max-width:440px; margin-bottom:36px;}
+  .about-img{position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/5; max-width:450px;
+  width:100%;}
+  .about-copy p{font-size:16px; line-height:1.75; color:#c9c7c1; max-width:400px; margin-bottom:36px;}
   .stat-row{display:flex; gap:44px; flex-wrap:wrap;}
   .stat b{display:block; font-family:'Anton',sans-serif; font-size:44px; color:var(--brand);}
   .stat span{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim);}
@@ -250,7 +251,8 @@
   }
   .modality-inner{display:grid; grid-template-columns:1fr 1fr; gap:0; width:100%; align-items:center;}
   @media(max-width:900px){.modality-inner{grid-template-columns:1fr; gap:36px;}}
-  .modality-media{position:relative; aspect-ratio:3/4; border-radius:18px; overflow:hidden;}
+  .modality-media{position:relative; aspect-ratio:3/4; border-radius:18px; overflow:hidden;width: 75%;
+max-width: 450px;}
   .modality:hover .modality-media .media-placeholder{transform:scale(1.03);}
   .modality-media::after{content:''; position:absolute; inset:0; mix-blend-mode:multiply; opacity:.35; pointer-events:none;}
   .modality-copy{padding:0 60px;}
@@ -600,7 +602,9 @@
   @media(max-width:900px){.cert-copy{padding:0 0 60px;}}
 
   /* ---------- galeria ---------- */
-  .gallery{display:grid; grid-template-columns:repeat(12,1fr); gap:16px;}
+  .gallery{display:grid; grid-template-columns:repeat(12,1fr); gap:16px;max-width: 1000px;
+margin-left: auto;
+margin-right: auto;}
   .g-item{position:relative; overflow:hidden; border-radius:10px;}
   .g-item:hover .media-placeholder{transform:scale(1.05);}
   .g-item .g-cap{
@@ -614,10 +618,9 @@
   .g3{grid-column:span 3; aspect-ratio:3/4;}
   .g4{grid-column:span 3; aspect-ratio:1/1;}
   .g5{grid-column:span 4; aspect-ratio:4/3;}
-  .g6{grid-column:span 5; aspect-ratio:16/9;}
   @media(max-width:900px){
     .gallery{grid-template-columns:repeat(2,1fr);}
-    .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 1; grid-row:span 1; aspect-ratio:4/5;}
+    .g1,.g2,.g3,.g4,.g5,{grid-column:span 1; grid-row:span 1; aspect-ratio:4/5;}
   }
 
   /* ---------- cta final ---------- */
@@ -1150,8 +1153,7 @@
       <div class="g-item g3 reveal"><div class="media-placeholder"><span>GALERIA 03</span></div><span class="g-cap">Boom Dance</span></div>
       <div class="g-item g4 reveal"><div class="media-placeholder"><span>GALERIA 04</span></div><span class="g-cap">Energia</span></div>
       <div class="g-item g5 reveal"><div class="media-placeholder"><span>GALERIA 05</span></div><span class="g-cap">Movimento</span></div>
-      <div class="g-item g6 reveal"><div class="media-placeholder"><span>GALERIA 06</span></div><span class="g-cap">Evento Boom</span></div>
-    </div>
+      </div>
   </div>
 </section>
 
