@@ -314,33 +314,58 @@ max-width: 800px;}
   will-change:transform;
 }
 
+/* ---------- CARD ---------- */
+
 .professional-card{
   flex:0 0 calc(82% - 12px);
+
   display:grid;
-  grid-template-columns:minmax(280px, .9fr) 1.1fr;
+  grid-template-columns:minmax(280px,.9fr) 1.1fr;
+
   min-height:560px;
+
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
+
   background:var(--bg-1);
+
   overflow:hidden;
+  box-sizing:border-box;
 }
 
 /* ---------- FOTO ---------- */
 
 .professional-photo{
   position:relative;
+
+  width:100%;
+  height:100%;
   min-height:560px;
+
   overflow:hidden;
+
   background:var(--bg-2);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .professional-photo img{
   width:100%;
   height:100%;
-  object-fit:cover;
-  object-position:center;
+
   display:block;
+
+  /*
+   * Contain mantém a foto inteira dentro da moldura,
+   * evitando cortes.
+   */
+  object-fit:contain;
+  object-position:center;
+
   transition:transform .8s var(--ease);
+
   pointer-events:none;
 }
 
@@ -348,15 +373,19 @@ max-width: 800px;}
   transform:scale(1.025);
 }
 
-/* Placeholder temporário enquanto não tiver a foto */
+/* ---------- PLACEHOLDER ---------- */
 
 .professional-photo-placeholder{
   width:100%;
   height:100%;
   min-height:560px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  box-sizing:border-box;
+
   background:
     repeating-linear-gradient(
       135deg,
@@ -370,11 +399,24 @@ max-width: 800px;}
       var(--bg-2),
       var(--bg-3)
     );
+
   color:var(--ink-dim);
+
   font-size:11px;
   font-weight:600;
   letter-spacing:.14em;
   text-transform:uppercase;
+}
+
+/*
+ * Caso exista uma imagem dentro do placeholder,
+ * ela ocupa corretamente a área disponível.
+ */
+.professional-photo-placeholder img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
 /* ---------- INFORMAÇÕES ---------- */
@@ -382,67 +424,82 @@ max-width: 800px;}
 .professional-info{
   display:flex;
   flex-direction:column;
+
+  /*
+   * IMPORTANTE:
+   * as informações começam sempre no topo.
+   */
   justify-content:flex-start;
   align-items:flex-start;
+
   padding:56px;
+
   min-height:560px;
+
   box-sizing:border-box;
 }
 
-/* Número do profissional */
-
-.professional-number{
-  color:var(--brand);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.18em;
-  margin:0 0 56px 0;
-}
-
-/* Cargo */
+/* ---------- CARGO ---------- */
 
 .professional-role{
   margin:0 0 16px 0;
+
   color:var(--ink-dim);
+
   font-size:11px;
   font-weight:700;
+
   letter-spacing:.18em;
   text-transform:uppercase;
 }
 
-/* Nome */
+/* ---------- NOME ---------- */
 
 .professional-name{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(52px,6vw,92px);
-  line-height:.95;
-  text-transform:uppercase;
   margin:0 0 28px 0;
+
+  font-family:'Anton',sans-serif;
+
+  font-size:clamp(52px,6vw,92px);
+
+  line-height:.95;
+
+  text-transform:uppercase;
 }
 
-/* Descrição */
+/* ---------- DESCRIÇÃO ---------- */
 
 .professional-description{
   max-width:470px;
+
   margin:0;
+
   color:#c9c7c1;
+
   font-size:15px;
   line-height:1.75;
 }
 
-/* Instagram / rede social */
+/* ---------- INSTAGRAM ---------- */
 
 .professional-social{
   display:inline-flex;
   align-items:center;
+
   gap:8px;
+
   margin-top:28px;
+
   width:max-content;
+
   color:var(--ink);
+
   font-size:12px;
   font-weight:700;
+
   letter-spacing:.08em;
   text-transform:uppercase;
+
   transition:color .3s;
 }
 
@@ -450,103 +507,233 @@ max-width: 800px;}
   color:var(--brand);
 }
 
-/* ---------- CONTROLES DO CARROSSEL ---------- */
+/* ======================================================
+   CONTROLES
+   ====================================================== */
 
+/*
+ * O contador deixa de ocupar espaço.
+ */
+.carousel-counter{
+  display:none;
+}
+
+/*
+ * Retiramos o espaço inferior criado pelo .carousel-bottom
+ * e transformamos os controles em elementos laterais.
+ */
 .carousel-bottom{
+  position:absolute;
+
+  inset:0;
+
+  margin:0;
+
+  display:block;
+
+  pointer-events:none;
+}
+
+/*
+ * Botões ficam nas laterais do carrossel,
+ * centralizados verticalmente.
+ */
+.carousel-controls{
+  position:absolute;
+
+  top:50%;
+
+  left:0;
+  right:0;
+
+  transform:translateY(-50%);
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:30px;
-  gap:24px;
+
+  pointer-events:none;
 }
 
-.carousel-counter{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.12em;
-}
-
-.carousel-counter-current{
-  color:var(--brand);
-}
-
-.carousel-counter-total{
-  color:var(--ink-dim);
-}
-
-.carousel-controls{
-  display:flex;
-  gap:10px;
-}
+/* ---------- BOTÕES ---------- */
 
 .carousel-arrow{
   width:52px;
   height:52px;
+
   border:1px solid var(--line);
   border-radius:10px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:20px;
+
+  background:rgba(17,17,17,.78);
+
+  backdrop-filter:blur(8px);
+
   transition:
     background .3s,
     color .3s,
     border-color .3s,
     transform .3s;
+
+  pointer-events:auto;
+
+  z-index:10;
+}
+
+/*
+ * Botão anterior fica um pouco para fora
+ * da moldura da imagem.
+ */
+.carousel-arrow:first-child{
+  transform:translateX(-26px);
+}
+
+/*
+ * Botão próximo fica um pouco para fora
+ * da moldura da imagem.
+ */
+.carousel-arrow:last-child{
+  transform:translateX(26px);
 }
 
 .carousel-arrow:hover{
   background:var(--brand);
+
   border-color:var(--brand);
+
   color:#fff;
-  transform:translateY(-2px);
+}
+
+.carousel-arrow:first-child:hover{
+  transform:translateX(-26px) translateY(-2px);
+}
+
+.carousel-arrow:last-child:hover{
+  transform:translateX(26px) translateY(-2px);
 }
 
 .carousel-arrow:disabled{
-  opacity:.3;
+  opacity:.25;
+
   cursor:default;
-  transform:none;
-  background:transparent;
+
+  background:rgba(17,17,17,.5);
+
   border-color:var(--line);
+
   color:var(--ink);
+
+  transform:translateX(-26px);
 }
 
-/* ---------- TABLET / MOBILE ---------- */
+.carousel-arrow:last-child:disabled{
+  transform:translateX(26px);
+}
+
+/* ======================================================
+   TABLET
+   ====================================================== */
 
 @media(max-width:900px){
 
   .professional-card{
     flex-basis:88%;
+
     grid-template-columns:1fr;
+
     min-height:auto;
   }
 
+  /* ---------- FOTO ---------- */
+
   .professional-photo{
-    min-height:auto;
+    width:100%;
+
+    height:auto;
+
+    min-height:0;
+
     aspect-ratio:4/5;
+
+    overflow:hidden;
+  }
+
+  .professional-photo img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
   }
 
   .professional-photo-placeholder{
+    width:100%;
+    height:100%;
+
     min-height:0;
+
     aspect-ratio:4/5;
   }
 
+  /* ---------- INFORMAÇÕES ---------- */
+
   .professional-info{
-    padding:36px 28px;
-    min-height:360px;
+    width:100%;
+
+    padding:36px 28px 42px;
+
+    min-height:auto;
+
     justify-content:flex-start;
   }
 
-  .professional-number{
-    margin-bottom:40px;
+  .professional-role{
+    margin-bottom:16px;
   }
 
+  .professional-name{
+    margin-bottom:24px;
+  }
+
+  /* ---------- CONTROLES ---------- */
+
+  .carousel-arrow{
+    width:48px;
+    height:48px;
+  }
+
+  .carousel-arrow:first-child{
+    transform:translateX(10px);
+  }
+
+  .carousel-arrow:last-child{
+    transform:translateX(-10px);
+  }
+
+  .carousel-arrow:first-child:hover{
+    transform:translateX(10px) translateY(-2px);
+  }
+
+  .carousel-arrow:last-child:hover{
+    transform:translateX(-10px) translateY(-2px);
+  }
+
+  .carousel-arrow:disabled{
+    transform:translateX(10px);
+  }
+
+  .carousel-arrow:last-child:disabled{
+    transform:translateX(-10px);
+  }
 }
 
-/* ---------- CELULAR ---------- */
+/* ======================================================
+   CELULAR
+   ====================================================== */
 
 @media(max-width:640px){
 
@@ -562,27 +749,66 @@ max-width: 800px;}
     gap:14px;
   }
 
-  .professional-info{
-    padding:28px 22px 32px;
-    min-height:360px;
+  /* ---------- FOTO ---------- */
+
+  .professional-photo{
+    aspect-ratio:4/5;
   }
 
-  .professional-number{
-    margin-bottom:36px;
+  /* ---------- INFORMAÇÕES ---------- */
+
+  .professional-info{
+    padding:28px 22px 32px;
   }
 
   .professional-name{
     font-size:52px;
+
+    margin-bottom:22px;
   }
+
+  .professional-description{
+    font-size:14px;
+    line-height:1.7;
+  }
+
+  /* ---------- CONTROLES ---------- */
 
   .carousel-arrow{
-    width:46px;
-    height:46px;
+    width:44px;
+    height:44px;
+
+    font-size:18px;
   }
 
+  .carousel-arrow:first-child{
+    transform:translateX(6px);
+  }
+
+  .carousel-arrow:last-child{
+    transform:translateX(-6px);
+  }
+
+  .carousel-arrow:first-child:hover{
+    transform:translateX(6px);
+  }
+
+  .carousel-arrow:last-child:hover{
+    transform:translateX(-6px);
+  }
+
+  .carousel-arrow:disabled{
+    transform:translateX(6px);
+  }
+
+  .carousel-arrow:last-child:disabled{
+    transform:translateX(-6px);
+  }
 }
 
-/* ---------- ACESSIBILIDADE ---------- */
+/* ======================================================
+   ACESSIBILIDADE
+   ====================================================== */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -928,74 +1154,60 @@ margin-right: auto;}
   </div>
 </section>
 
-<!-- ============ EQUIPEE BOOM ============ -->
+<!-- ============ EQUIPE BOOM ============ -->
 <section class="section-pad" id="experiencia">
   <div class="container">
 
     <p class="eyebrow reveal">03 — EQUIPE BOOM</p>
-    <h2 class="display reveal" style="font-size:clamp(34px,5vw,64px); margin-top:18px; text-transform:none; font-family:'Inter',sans-serif; font-weight:800; max-width:760px;">
+
+    <h2
+      class="display reveal"
+      style="
+        font-size:clamp(34px,5vw,64px);
+        margin-top:18px;
+        text-transform:none;
+        font-family:'Inter',sans-serif;
+        font-weight:800;
+        max-width:760px;
+      "
+    >
       Venha conhecer a Família BOOM!
     </h2>
 
-
-
-    
-
-   <h2
-  class="display reveal"
-  style="
-    font-size:clamp(44px,7vw,96px);
-    margin-top:18px;
-    max-width:900px;
-  "
->
-  QUEM FAZ A<br>
-  <span style="color:var(--brand);">BOOM SE MOVER.</span>
-</h2>
-
-<h2
-  class="display reveal"
-  style="
-    font-size:clamp(34px,5vw,64px);
-    margin-top:18px;
-    text-transform:none;
-    font-family:'Inter',sans-serif;
-    font-weight:800;
-    max-width:760px;
-  "
->
- 
-</h2>
+    <h2
+      class="display reveal"
+      style="
+        font-size:clamp(44px,7vw,96px);
+        margin-top:18px;
+        max-width:900px;
+      "
+    >
+      QUEM FAZ A<br>
+      <span style="color:var(--brand);">BOOM SE MOVER.</span>
+    </h2>
 
     <div class="professionals-carousel reveal">
 
+      <!-- ============ ÁREA DO CARROSSEL ============ -->
       <div
         class="professionals-viewport"
         id="professionalsViewport"
         aria-label="Profissionais da Boom"
       >
 
-        <div class="professionals-track" id="professionalsTrack">
+        <div
+          class="professionals-track"
+          id="professionalsTrack"
+        >
 
-          <!-- PROFISSIONAL 01 -->
+          <!-- ============ PROFISSIONAL 01 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-              <!--
-              Quando tiver a foto, substitua o placeholder abaixo por:
-
               <img
-                src="raphael.jpg"
-                alt="Raphael conduzindo uma aula BOOM Dance"
-              >
-              -->
-
-              <div class="professional-photo-placeholder">
-                <img
                 src="Rapha.Bruno.apresentacao.jpeg"
-                alt="Foto de estudio do Raphael com roupa florida"
+                alt="Foto de estúdio do Raphael Bruno com roupa florida"
               >
-              </div>
             </div>
 
             <div class="professional-info">
@@ -1009,9 +1221,8 @@ margin-right: auto;}
               </h3>
 
               <p class="professional-description">
-                Professor, coreógrafo e sócio-fundador da Boom Company, atua com dança e movimento desde 2011.</br> 
-            </br>
-              Formado em Educação Física, leva para o Boom Dance e Boom Jump muita energia, carisma e criatividade, transformando cada aula em uma experiência única.
+                Professor, coreógrafo e sócio-fundador da Boom Company, atua com dança e movimento desde 2011.<br><br>
+                Formado em Educação Física, leva para o Boom Dance e Boom Jump muita energia, carisma e criatividade, transformando cada aula em uma experiência única.
               </p>
 
               <a
@@ -1020,22 +1231,23 @@ margin-right: auto;}
                 target="_blank"
                 rel="noopener"
               >
-                Instagram <span></span>
+                Instagram <span>→</span>
               </a>
 
             </div>
+
           </article>
 
 
-          <!-- PROFISSIONAL 02 -->
+          <!-- ============ PROFISSIONAL 02 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-                <img
+              <img
                 src="wallyson.apresentacao.jpeg"
-                alt="Wallyson em frente a LoveFunk"
+                alt="Wallyson Santos em frente a LoveFunk"
               >
-              </div>
+            </div>
 
             <div class="professional-info">
 
@@ -1052,26 +1264,28 @@ margin-right: auto;}
               </p>
 
               <a
-  href="https://www.instagram.com/wallysonsantoss/"
-  class="professional-social"
-  target="_blank"
-  rel="noopener"
->
-  Instagram <span>→</span>
-</a>
+                href="https://www.instagram.com/wallysonsantoss/"
+                class="professional-social"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram <span>→</span>
+              </a>
+
             </div>
+
           </article>
 
 
-          <!-- PROFISSIONAL 03 -->
+          <!-- ============ PROFISSIONAL 03 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-                 <img
+              <img
                 src="reh.apresentacao.jpeg"
-                alt="Foto profissional Reh"
+                alt="Foto profissional de Reh Honorato"
               >
-              </div>
+            </div>
 
             <div class="professional-info">
 
@@ -1084,34 +1298,34 @@ margin-right: auto;}
               </h3>
 
               <p class="professional-description">
-                Profissional de educação física ( UNIP 2019)
-Pós graduação: Fisiologia do exercício (UNIGUAÇU 2023)
-Personal trainer e coreógrafa na empresa boom company.
+                Profissional de Educação Física (UNIP 2019).<br>
+                Pós-graduação em Fisiologia do Exercício (UNIGUAÇU 2023).<br>
+                Personal trainer e coreógrafa na empresa Boom Company.
               </p>
 
-                   <a
-  href="https://www.instagram.com/rehhonorato/"
-  class="professional-social"
-  target="_blank"
-  rel="noopener"
->
-  Instagram <span>→</span>
-</a>
+              <a
+                href="https://www.instagram.com/rehhonorato/"
+                class="professional-social"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram <span>→</span>
+              </a>
 
             </div>
+
           </article>
 
 
-
-          <!-- PROFISSIONAL 04 -->
+          <!-- ============ PROFISSIONAL 04 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-                 <img
+              <img
                 src="talita.apresentacao.jpeg"
-                alt="Foto profissional Talita"
+                alt="Foto profissional de Talita Iacona"
               >
-              </div>
+            </div>
 
             <div class="professional-info">
 
@@ -1137,17 +1351,19 @@ Personal trainer e coreógrafa na empresa boom company.
               </a>
 
             </div>
+
           </article>
 
-            <!-- PROFISSIONAL 05 -->
+
+          <!-- ============ PROFISSIONAL 05 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-                 <img
+              <img
                 src="pardal.apresentacao.jpeg"
-                alt="Foto profissional Thiago Pardal"
+                alt="Foto profissional de Thiago Pardal"
               >
-              </div>
+            </div>
 
             <div class="professional-info">
 
@@ -1161,7 +1377,6 @@ Personal trainer e coreógrafa na empresa boom company.
 
               <p class="professional-description">
                 Thiago Pardal faz parte do time de professores da Boom Company, contribuindo para levar movimento, energia e conexão para cada experiência. Ao lado da equipe Boom, participa da construção de aulas que refletem a essência e a identidade da marca.
-
               </p>
 
               <a
@@ -1174,17 +1389,19 @@ Personal trainer e coreógrafa na empresa boom company.
               </a>
 
             </div>
+
           </article>
 
-           <!-- PROFISSIONAL 06 -->
+
+          <!-- ============ PROFISSIONAL 06 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-                 <img
+              <img
                 src="debora.apresentacao.jpeg"
-                alt="Foto profissional Thiago Pardal"
+                alt="Foto profissional de Debora Silva"
               >
-              </div>
+            </div>
 
             <div class="professional-info">
 
@@ -1211,9 +1428,11 @@ Personal trainer e coreógrafa na empresa boom company.
               </a>
 
             </div>
+
           </article>
 
-           <!-- PROFISSIONAL 07 -->
+
+          <!-- ============ PROFISSIONAL 07 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
@@ -1224,8 +1443,6 @@ Personal trainer e coreógrafa na empresa boom company.
 
             <div class="professional-info">
 
-              <span class="professional-number">07</span>
-
               <p class="professional-role">
                 Professor • BOOM Dance
               </p>
@@ -1249,9 +1466,11 @@ Personal trainer e coreógrafa na empresa boom company.
               </a>
 
             </div>
+
           </article>
 
-           <!-- PROFISSIONAL 08 -->
+
+          <!-- ============ PROFISSIONAL 08 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
@@ -1262,8 +1481,6 @@ Personal trainer e coreógrafa na empresa boom company.
 
             <div class="professional-info">
 
-              <span class="professional-number">08</span>
-
               <p class="professional-role">
                 Professor • BOOM Dance
               </p>
@@ -1287,16 +1504,17 @@ Personal trainer e coreógrafa na empresa boom company.
               </a>
 
             </div>
+
           </article>
 
         </div>
       </div>
 
 
-      <!-- CONTROLES -->
+      <!-- ============ CONTROLES ============ -->
       <div class="carousel-bottom">
 
-        <div class="carousel-counter" aria-live="polite">
+        <div class="carousel-counter">
           <span
             class="carousel-counter-current"
             id="professionalCurrent"
@@ -1310,39 +1528,38 @@ Personal trainer e coreógrafa na empresa boom company.
             class="carousel-counter-total"
             id="professionalTotal"
           >
-            04
+            08
           </span>
         </div>
 
         <div class="carousel-controls">
 
           <button
+            type="button"
             class="carousel-arrow"
             id="professionalPrev"
-            type="button"
             aria-label="Profissional anterior"
           >
             ←
           </button>
 
           <button
+            type="button"
             class="carousel-arrow"
             id="professionalNext"
-            type="button"
             aria-label="Próximo profissional"
           >
             →
           </button>
 
         </div>
+
       </div>
 
     </div>
 
   </div>
 </section>
-
-<div class="container"><div class="divider"></div></div>
 
 <!-- ============ VÍDEOS ============ -->
 <section class="section-pad" id="videos">
@@ -1613,7 +1830,8 @@ Personal trainer e coreógrafa na empresa boom company.
     });
   });
 
-  // ======================================================
+```javascript
+// ======================================================
 // CARROSSEL — PROFISSIONAIS
 // ======================================================
 
@@ -1639,182 +1857,342 @@ const professionalTotal =
   document.getElementById('professionalTotal');
 
 
-let professionalIndex = 0;
-
-
-// Número total
-professionalTotal.textContent =
-  String(professionalCards.length).padStart(2, '0');
-
-
-// Descobre quanto cada slide precisa andar
-function getProfessionalStep(){
-
-  if(!professionalCards.length) return 0;
-
-  const cardWidth =
-    professionalCards[0].getBoundingClientRect().width;
-
-  const styles =
-    getComputedStyle(professionalsTrack);
-
-  const gap =
-    parseFloat(styles.gap) || 0;
-
-  return cardWidth + gap;
-}
-
-
-// Atualiza posição
-function updateProfessionalsCarousel(){
-
-  const step = getProfessionalStep();
-
-  professionalsTrack.style.transform =
-    `translateX(-${professionalIndex * step}px)`;
-
-  professionalCurrent.textContent =
-    String(professionalIndex + 1).padStart(2, '0');
-
-
-  professionalPrev.disabled =
-    professionalIndex === 0;
-
-  professionalNext.disabled =
-    professionalIndex === professionalCards.length - 1;
-}
-
-
-// Próximo
-professionalNext.addEventListener('click', () => {
-
-  if(professionalIndex < professionalCards.length - 1){
-
-    professionalIndex++;
-
-    updateProfessionalsCarousel();
-  }
-});
-
-
-// Anterior
-professionalPrev.addEventListener('click', () => {
-
-  if(professionalIndex > 0){
-
-    professionalIndex--;
-
-    updateProfessionalsCarousel();
-  }
-});
-
-
-// Teclado
-professionalsViewport.setAttribute('tabindex','0');
-
-professionalsViewport.addEventListener('keydown', (event) => {
-
-  if(event.key === 'ArrowRight'){
-
-    professionalNext.click();
-  }
-
-  if(event.key === 'ArrowLeft'){
-
-    professionalPrev.click();
-  }
-});
-
-
 // ======================================================
-// DRAG / SWIPE
+// VERIFICA SE O CARROSSEL EXISTE
 // ======================================================
 
-let dragStartX = 0;
-let dragCurrentX = 0;
-let dragging = false;
+if (
+  professionalsViewport &&
+  professionalsTrack &&
+  professionalCards.length &&
+  professionalPrev &&
+  professionalNext
+) {
+
+  let professionalIndex = 0;
 
 
-professionalsViewport.addEventListener('pointerdown', (event) => {
+  // ====================================================
+  // NÚMERO TOTAL DE PROFISSIONAIS
+  // ====================================================
 
-  dragging = true;
+  if (professionalTotal) {
 
-  dragStartX = event.clientX;
+    professionalTotal.textContent =
+      String(professionalCards.length).padStart(2, '0');
 
-  dragCurrentX = event.clientX;
-
-  professionalsViewport.classList.add('dragging');
-
-  professionalsViewport.setPointerCapture(event.pointerId);
-});
+  }
 
 
-professionalsViewport.addEventListener('pointermove', (event) => {
+  // ====================================================
+  // DESCOBRE QUANTO CADA SLIDE PRECISA ANDAR
+  // ====================================================
 
-  if(!dragging) return;
+  function getProfessionalStep(){
 
-  dragCurrentX = event.clientX;
-});
+    if(!professionalCards.length) return 0;
+
+    const cardWidth =
+      professionalCards[0].getBoundingClientRect().width;
+
+    const styles =
+      getComputedStyle(professionalsTrack);
+
+    const gap =
+      parseFloat(styles.gap) || 0;
+
+    return cardWidth + gap;
+  }
 
 
-professionalsViewport.addEventListener('pointerup', () => {
+  // ====================================================
+  // ATUALIZA POSIÇÃO DO CARROSSEL
+  // ====================================================
 
-  if(!dragging) return;
+  function updateProfessionalsCarousel(){
 
-  dragging = false;
+    const step =
+      getProfessionalStep();
 
-  professionalsViewport.classList.remove('dragging');
-
-  const difference =
-    dragCurrentX - dragStartX;
+    professionalsTrack.style.transform =
+      `translate3d(-${professionalIndex * step}px, 0, 0)`;
 
 
-  // Distância mínima necessária para mudar
-  if(Math.abs(difference) > 60){
+    // Atualiza contador
 
-    // Arrastou para esquerda
+    if (professionalCurrent) {
+
+      professionalCurrent.textContent =
+        String(professionalIndex + 1).padStart(2, '0');
+
+    }
+
+
+    // Atualiza botão anterior
+
+    professionalPrev.disabled =
+      professionalIndex === 0;
+
+
+    // Atualiza botão próximo
+
+    professionalNext.disabled =
+      professionalIndex === professionalCards.length - 1;
+
+  }
+
+
+  // ====================================================
+  // PRÓXIMO PROFISSIONAL
+  // ====================================================
+
+  professionalNext.addEventListener('click', () => {
+
     if(
-      difference < 0 &&
-      professionalIndex < professionalCards.length - 1
+      professionalIndex <
+      professionalCards.length - 1
     ){
+
       professionalIndex++;
+
+      updateProfessionalsCarousel();
+
     }
 
-    // Arrastou para direita
-    else if(
-      difference > 0 &&
-      professionalIndex > 0
-    ){
+  });
+
+
+  // ====================================================
+  // PROFISSIONAL ANTERIOR
+  // ====================================================
+
+  professionalPrev.addEventListener('click', () => {
+
+    if(professionalIndex > 0){
+
       professionalIndex--;
+
+      updateProfessionalsCarousel();
+
     }
-  }
+
+  });
+
+
+  // ====================================================
+  // CONTROLE PELO TECLADO
+  // ====================================================
+
+  professionalsViewport.setAttribute(
+    'tabindex',
+    '0'
+  );
+
+  professionalsViewport.addEventListener(
+    'keydown',
+    (event) => {
+
+      if(event.key === 'ArrowRight'){
+
+        event.preventDefault();
+
+        professionalNext.click();
+
+      }
+
+      if(event.key === 'ArrowLeft'){
+
+        event.preventDefault();
+
+        professionalPrev.click();
+
+      }
+
+    }
+  );
+
+
+  // ====================================================
+  // DRAG / SWIPE
+  // ====================================================
+
+  let dragStartX = 0;
+  let dragCurrentX = 0;
+  let dragging = false;
+
+
+  // ----------------------------------------------------
+  // COMEÇA O DRAG
+  // ----------------------------------------------------
+
+  professionalsViewport.addEventListener(
+    'pointerdown',
+    (event) => {
+
+      /*
+       * Não inicia o arraste quando o usuário estiver
+       * clicando no Instagram ou em algum botão.
+       */
+
+      if(
+        event.target.closest('a') ||
+        event.target.closest('button')
+      ){
+
+        return;
+
+      }
+
+
+      dragging = true;
+
+      dragStartX =
+        event.clientX;
+
+      dragCurrentX =
+        event.clientX;
+
+
+      professionalsViewport.classList.add(
+        'dragging'
+      );
+
+
+      professionalsViewport.setPointerCapture(
+        event.pointerId
+      );
+
+    }
+  );
+
+
+  // ----------------------------------------------------
+  // MOVIMENTO DO DRAG
+  // ----------------------------------------------------
+
+  professionalsViewport.addEventListener(
+    'pointermove',
+    (event) => {
+
+      if(!dragging) return;
+
+      dragCurrentX =
+        event.clientX;
+
+    }
+  );
+
+
+  // ----------------------------------------------------
+  // FINALIZA O DRAG
+  // ----------------------------------------------------
+
+  professionalsViewport.addEventListener(
+    'pointerup',
+    () => {
+
+      if(!dragging) return;
+
+
+      dragging = false;
+
+      professionalsViewport.classList.remove(
+        'dragging'
+      );
+
+
+      const difference =
+        dragCurrentX - dragStartX;
+
+
+      /*
+       * Distância mínima necessária para trocar
+       * de profissional.
+       */
+
+      if(Math.abs(difference) > 60){
+
+
+        // --------------------------------------------
+        // ARRASTOU PARA A ESQUERDA
+        // --------------------------------------------
+
+        if(
+          difference < 0 &&
+          professionalIndex <
+          professionalCards.length - 1
+        ){
+
+          professionalIndex++;
+
+        }
+
+
+        // --------------------------------------------
+        // ARRASTOU PARA A DIREITA
+        // --------------------------------------------
+
+        else if(
+          difference > 0 &&
+          professionalIndex > 0
+        ){
+
+          professionalIndex--;
+
+        }
+
+      }
+
+
+      updateProfessionalsCarousel();
+
+    }
+  );
+
+
+  // ====================================================
+  // CANCELAMENTO DO DRAG
+  // ====================================================
+
+  professionalsViewport.addEventListener(
+    'pointercancel',
+    () => {
+
+      dragging = false;
+
+      professionalsViewport.classList.remove(
+        'dragging'
+      );
+
+      updateProfessionalsCarousel();
+
+    }
+  );
+
+
+  // ====================================================
+  // REDIMENSIONAMENTO DA TELA
+  // ====================================================
+
+  window.addEventListener(
+    'resize',
+    () => {
+
+      updateProfessionalsCarousel();
+
+    },
+    { passive:true }
+  );
+
+
+  // ====================================================
+  // ESTADO INICIAL
+  // ====================================================
 
   updateProfessionalsCarousel();
-});
 
-
-professionalsViewport.addEventListener('pointercancel', () => {
-
-  dragging = false;
-
-  professionalsViewport.classList.remove('dragging');
-
-  updateProfessionalsCarousel();
-});
-
-
-// Se a largura da tela mudar,
-// recalcula a posição corretamente
-window.addEventListener('resize', () => {
-
-  updateProfessionalsCarousel();
-
-}, { passive:true });
-
-
-// Estado inicial
-updateProfessionalsCarousel();
-</script>
+}
+```
 
 </body>
 </html>
