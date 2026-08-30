@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeria — Boom Company</title>
+<meta name="description" content="Galeria de fotos Boom Company. Momentos, aulas, eventos e a energia da comunidade Boom.">
+<meta property="og:title" content="Galeria — Boom Company">
+<meta property="og:description" content="Veja os melhores momentos da Boom Company em fotos.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23171717%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Arial Black%22 fill=%22%23F2A93B%22 text-anchor=%22middle%22>B</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-0:#111111;
+    --bg-1:#171717;
+    --bg-2:#1c1c1c;
+    --bg-3:#222222;
+    --ink:#f4f3ef;
+    --ink-dim:#9a9a94;
+    --line:rgba(244,243,239,0.10);
+    --brand:#e50914;
+    --brand-2:#ff2d3a;
+    --brand-glow:rgba(229,9,20,0.35);
+    --logo-color:#f2a93b;
+    --jump:#3f7dfb;
+    --dance:#f5cf3b;
+    --ease:cubic-bezier(.16,.84,.32,1);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-1);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--brand); color:#ffffff;}
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+  .container{max-width:1360px; margin:0 auto; padding:0 32px;}
+  @media(max-width:768px){.container{padding:0 20px;}}
+
+  .display{font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92;}
+  .eyebrow{font-size:12px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-dim);}
+
+  :focus-visible{outline:2px solid var(--brand); outline-offset:3px;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- pulse line ---------- */
+  #pulseline{
+    position:fixed; top:0; left:0; width:100%; height:2px; z-index:70;
+    background:linear-gradient(90deg, transparent, var(--brand), var(--brand-2), transparent);
+    background-size:200% 100%;
+    animation:pulseflow 6s linear infinite;
+    opacity:.85;
+  }
+  @keyframes pulseflow{0%{background-position:0% 0;}100%{background-position:200% 0;}}
+
+  /* ---------- navbar ---------- */
+  header{
+    position:fixed; top:0; left:0; width:100%; z-index:60;
+    padding:22px 0;
+    transition:padding .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    padding:14px 0;
+    background:rgba(17,17,17,0.78);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{display:flex; align-items:center; justify-content:space-between; gap:24px;}
+  .logo{font-family:'Anton',sans-serif; font-size:22px; letter-spacing:0.04em; text-transform:uppercase; display:flex; align-items:center; gap:2px;}
+  .logo span{color:var(--logo-color);}
+  .nav-links{display:flex; align-items:center; gap:36px; list-style:none;}
+  .nav-links a{
+    font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-dim);
+    position:relative; padding-bottom:4px; transition:color .3s;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--brand);
+    transition:width .35s var(--ease);
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:var(--ink); color:var(--bg-1); padding:11px 22px; border-radius:100px;
+    transition:transform .3s var(--ease), background .3s, color .3s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--brand); color:#fff; transform:translateY(-2px);}
+  .burger{display:none; flex-direction:column; gap:5px; width:26px; z-index:80;}
+  .burger span{display:block; height:2px; width:100%; background:var(--ink); transition:all .35s var(--ease);}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    position:fixed; inset:0; background:var(--bg-1); z-index:65;
+    display:flex; flex-direction:column; justify-content:center; gap:28px; padding:32px;
+    transform:translateY(-100%); transition:transform .5s var(--ease);
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-family:'Anton',sans-serif; font-size:38px; text-transform:uppercase; letter-spacing:.02em;}
+  .mobile-menu .nav-cta{align-self:flex-start; margin-top:12px;}
+
+  @media(max-width:900px){
+    .nav-links, header .nav-cta{display:none;}
+    .burger{display:flex;}
+  }
+
+  /* ---------- hero galeria ---------- */
+  .gallery-hero{
+    position:relative;
+    min-height:50vh;
+    display:flex;
+    align-items:flex-end;
+    padding:140px 0 60px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 20%, rgba(229,9,20,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 60%);
+  }
+  .gallery-hero h1{
+    font-size:clamp(44px,8vw,120px);
+    margin-bottom:16px;
+  }
+  .gallery-hero p{
+    max-width:480px;
+    font-size:16px;
+    line-height:1.6;
+    color:#d7d5cf;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-bottom:24px;
+    transition:color .3s;
+  }
+  .back-link:hover{color:var(--ink);}
+  .back-link .arrow{transition:transform .35s var(--ease); display:inline-block;}
+  .back-link:hover .arrow{transform:translateX(-4px);}
+
+  /* ---------- filtros ---------- */
+  .filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+    padding-top:60px;
+  }
+  .filter-btn{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:10px 20px;
+    border-radius:100px;
+    border:1px solid var(--line);
+    color:var(--ink-dim);
+    background:transparent;
+    transition:all .3s var(--ease);
+    white-space:nowrap;
+  }
+  .filter-btn:hover{
+    border-color:rgba(244,243,239,.25);
+    color:var(--ink);
+  }
+  .filter-btn.active{
+    background:var(--brand);
+    border-color:var(--brand);
+    color:#fff;
+  }
+
+  /* ---------- grid da galeria ---------- */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+    padding-bottom:100px;
+  }
+  @media(max-width:1100px){
+    .gallery-grid{grid-template-columns:repeat(3, 1fr); gap:14px;}
+  }
+  @media(max-width:768px){
+    .gallery-grid{grid-template-columns:repeat(2, 1fr); gap:12px;}
+  }
+
+  .gallery-item{
+    position:relative;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--bg-2);
+    aspect-ratio:4/5;
+    transition:transform .4s var(--ease), box-shadow .4s;
+  }
+  .gallery-item:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px -12px rgba(0,0,0,0.5);
+  }
+  .gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    transition:transform .6s var(--ease);
+  }
+  .gallery-item:hover img{transform:scale(1.06);}
+
+  .gallery-item .g-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(17,17,17,0.75) 100%);
+    opacity:0;
+    transition:opacity .4s var(--ease);
+    display:flex;
+    align-items:flex-end;
+    padding:16px;
+  }
+  .gallery-item:hover .g-overlay{opacity:1;}
+  .gallery-item .g-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:100px;
+    background:rgba(17,17,17,0.6);
+    backdrop-filter:blur(4px);
+    border:1px solid var(--line);
+  }
+  .gallery-item .g-tag.dance{color:var(--dance);}
+  .gallery-item .g-tag.jump{color:var(--jump);}
+  .gallery-item .g-tag.event{color:var(--brand);}
+
+  /* itens com proporções variadas para criar ritmo */
+  .gallery-item.wide{grid-column:span 2; aspect-ratio:16/9;}
+  .gallery-item.tall{grid-row:span 2; aspect-ratio:3/4;}
+  @media(max-width:768px){
+    .gallery-item.wide{grid-column:span 2;}
+    .gallery-item.tall{grid-row:span 1; aspect-ratio:4/5;}
+  }
+
+  .gallery-item.hidden{display:none;}
+
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:rgba(11,11,11,0.92);
+    backdrop-filter:blur(12px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s var(--ease);
+  }
+  .lightbox.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .lightbox-img{
+    max-width:90vw;
+    max-height:85vh;
+    object-fit:contain;
+    border-radius:8px;
+    transform:scale(0.94);
+    transition:transform .5s var(--ease);
+  }
+  .lightbox.open .lightbox-img{transform:scale(1);}
+  .lightbox-close{
+    position:absolute;
+    top:24px;
+    right:24px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:rgba(17,17,17,0.6);
+    color:var(--ink);
+    font-size:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s;
+    z-index:101;
+  }
+  .lightbox-close:hover{
+    background:var(--brand);
+    border-color:var(--brand);
+    color:#fff;
+    transform:rotate(90deg);
+  }
+  .lightbox-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:rgba(17,17,17,0.6);
+    color:var(--ink);
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .3s;
+    z-index:101;
+  }
+  .lightbox-nav:hover{
+    background:var(--brand);
+    border-color:var(--brand);
+    color:#fff;
+  }
+  .lightbox-prev{left:24px;}
+  .lightbox-next{right:24px;}
+  .lightbox-caption{
+    position:absolute;
+    bottom:28px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    font-size:13px;
+    color:var(--ink-dim);
+    letter-spacing:0.04em;
+    z-index:101;
+  }
+  @media(max-width:640px){
+    .lightbox-nav{width:44px; height:44px; font-size:18px;}
+    .lightbox-prev{left:12px;}
+    .lightbox-next{right:12px;}
+    .lightbox-close{top:16px; right:16px; width:40px; height:40px; font-size:20px;}
+  }
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line); padding:64px 0 36px;}
+  .foot-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:48px;}
+  .foot-cols{display:flex; gap:64px; flex-wrap:wrap;}
+  .foot-col h4{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:16px;}
+  .foot-col a{display:block; font-size:14px; color:#d5d3cd; margin-bottom:10px; transition:color .25s;}
+  .foot-col a:hover{color:var(--brand);}
+  .foot-bottom{display:flex; justify-content:space-between; align-items:center; gap:16px; padding-top:28px; border-top:1px solid var(--line); flex-wrap:wrap;}
+  .foot-bottom p{font-size:12px; color:var(--ink-dim);}
+  .foot-social{display:flex; gap:16px;}
+  .foot-social a{width:36px; height:36px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .3s;}
+  .foot-social a:hover{border-color:var(--brand); color:var(--brand); transform:translateY(-3px);}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div id="pulseline"></div>
+
+<!-- ============ NAVBAR ============ -->
+<header id="siteHeader">
+  <div class="container nav-row">
+    <a href="index.html" class="logo">BOOM<span>.</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#a-boom">A Boom</a></li>
+        <li><a href="index.html#modalidades">Modalidades</a></li>
+        <li><a href="index.html#experiencia">Experiência</a></li>
+        <li><a href="index.html#licenciamento">Licencie</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a href="index.html#alunos" class="nav-cta">Quero Fazer Parte</a>
+    <button class="burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#a-boom">A Boom</a>
+  <a href="index.html#modalidades">Modalidades</a>
+  <a href="index.html#experiencia">Experiência</a>
+  <a href="index.html#licenciamento">Licencie</a>
+  <a href="index.html#contato">Contato</a>
+</div>
+
+<!-- ============ HERO GALERIA ============ -->
+<section class="gallery-hero">
+  <div class="container">
+    <a href="index.html#galeria" class="back-link reveal"><span class="arrow">←</span> Voltar para o site</a>
+    <p class="eyebrow reveal">Galeria</p>
+    <h1 class="display reveal">MOMENTOS<br><span style="color:var(--brand);">BOOM.</span></h1>
+    <p class="reveal">Aulas, eventos, bastidores e a energia da nossa comunidade. Cada foto conta um pedaço da nossa história.</p>
+  </div>
+</section>
+
+<!-- ============ GALERIA COMPLETA ============ -->
+<section class="container">
+  <div class="filters reveal">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="dance">Boom Dance</button>
+    <button class="filter-btn" data-filter="jump">Boom Jump</button>
+    <button class="filter-btn" data-filter="event">Eventos</button>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+
+    <!-- FOTO 01 -->
+    <div class="gallery-item wide reveal" data-cat="dance">
+      <img src="galeria-01.jpg" alt="Boom Dance — Aula" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 02 -->
+    <div class="gallery-item reveal" data-cat="jump">
+      <img src="galeria-02.jpg" alt="Boom Jump — Treino" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 03 -->
+    <div class="gallery-item tall reveal" data-cat="event">
+      <img src="galeria-03.jpg" alt="Evento Boom" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 04 -->
+    <div class="gallery-item reveal" data-cat="dance">
+      <img src="galeria-04.jpg" alt="Boom Dance — Coreografia" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 05 -->
+    <div class="gallery-item wide reveal" data-cat="jump">
+      <img src="galeria-05.jpg" alt="Boom Jump — Aula ao ar livre" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 06 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-06.jpg" alt="Evento de formatura Boom" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 07 -->
+    <div class="gallery-item reveal" data-cat="dance">
+      <img src="galeria-07.jpg" alt="Boom Dance — Bastidores" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 08 -->
+    <div class="gallery-item tall reveal" data-cat="jump">
+      <img src="galeria-08.jpg" alt="Boom Jump — Equipe" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 09 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-09.jpg" alt="Festa Boom" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 10 -->
+    <div class="gallery-item wide reveal" data-cat="dance">
+      <img src="galeria-10.jpg" alt="Boom Dance — Apresentação" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 11 -->
+    <div class="gallery-item reveal" data-cat="jump">
+      <img src="galeria-11.jpg" alt="Boom Jump — Intenso" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 12 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-12.jpg" alt="Confraternização Boom" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 13 -->
+    <div class="gallery-item reveal" data-cat="dance">
+      <img src="galeria-13.jpg" alt="Boom Dance — Sala lotada" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 14 -->
+    <div class="gallery-item wide reveal" data-cat="jump">
+      <img src="galeria-14.jpg" alt="Boom Jump — Pular é viver" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 15 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-15.jpg" alt="Encontro de licenciados" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 16 -->
+    <div class="gallery-item tall reveal" data-cat="dance">
+      <img src="galeria-16.jpg" alt="Boom Dance — Ritmo" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 17 -->
+    <div class="gallery-item reveal" data-cat="jump">
+      <img src="galeria-17.jpg" alt="Boom Jump — Cardio" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 18 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-18.jpg" alt="Premiação Boom" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 19 -->
+    <div class="gallery-item reveal" data-cat="dance">
+      <img src="galeria-19.jpg" alt="Boom Dance — Sorrindo" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 20 -->
+    <div class="gallery-item wide reveal" data-cat="jump">
+      <img src="galeria-20.jpg" alt="Boom Jump — Equipe completa" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 21 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-21.jpg" alt="Festa de fim de ano" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+    <!-- FOTO 22 -->
+    <div class="gallery-item reveal" data-cat="dance">
+      <img src="galeria-22.jpg" alt="Boom Dance — Coreo nova" loading="lazy">
+      <div class="g-overlay"><span class="g-tag dance">Boom Dance</span></div>
+    </div>
+
+    <!-- FOTO 23 -->
+    <div class="gallery-item reveal" data-cat="jump">
+      <img src="galeria-23.jpg" alt="Boom Jump — Aula noturna" loading="lazy">
+      <div class="g-overlay"><span class="g-tag jump">Boom Jump</span></div>
+    </div>
+
+    <!-- FOTO 24 -->
+    <div class="gallery-item reveal" data-cat="event">
+      <img src="galeria-24.jpg" alt="Dia especial Boom" loading="lazy">
+      <div class="g-overlay"><span class="g-tag event">Evento</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar lightbox">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Foto anterior">←</button>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Próxima foto">→</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contato">
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <a href="index.html" class="logo">BOOM<span>.</span></a>
+        <p style="margin-top:16px; max-width:280px; font-size:13px; color:var(--ink-dim);">Fitness, dança e movimento. Uma marca, várias formas de fazer parte.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Navegue</h4>
+          <a href="index.html#a-boom">A Boom</a>
+          <a href="index.html#modalidades">Modalidades</a>
+          <a href="index.html#experiencia">Experiência</a>
+          <a href="index.html#licenciamento">Licencie</a>
+        </div>
+        <div class="foot-col">
+          <h4>Contato</h4>
+          <a href="mailto:contato@boomcompany.com.br">contato@boomcompany.com.br</a>
+          <a href="#">@boomcompany</a>
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <a href="#">Termos de Uso</a>
+          <a href="#">Privacidade</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 Boom Company. Todos os direitos reservados.</p>
+      <div class="foot-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">YT</a>
+        <a href="#" aria-label="TikTok">TT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // --- navbar scroll ---
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, {passive:true});
+
+  // --- mobile menu ---
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  }));
+
+  // --- scroll reveal ---
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // --- filtros ---
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      galleryItems.forEach(item => {
+        const cat = item.dataset.cat;
+        if(filter === 'all' || cat === filter){
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // --- lightbox ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+
+  let visibleItems = [];
+  let currentIndex = 0;
+
+  function updateVisibleItems(){
+    visibleItems = [...document.querySelectorAll('.gallery-item:not(.hidden)')];
+  }
+
+  function openLightbox(index){
+    updateVisibleItems();
+    if(!visibleItems.length) return;
+    currentIndex = index;
+    const item = visibleItems[currentIndex];
+    const img = item.querySelector('img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = img.alt;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(() => { lightboxImg.src = ''; }, 400);
+  }
+
+  function prevPhoto(){
+    currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+    const item = visibleItems[currentIndex];
+    const img = item.querySelector('img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = img.alt;
+  }
+
+  function nextPhoto(){
+    currentIndex = (currentIndex + 1) % visibleItems.length;
+    const item = visibleItems[currentIndex];
+    const img = item.querySelector('img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = img.alt;
+  }
+
+  galleryItems.forEach((item, i) => {
+    item.addEventListener('click', () => {
+      updateVisibleItems();
+      const idx = visibleItems.indexOf(item);
+      openLightbox(idx >= 0 ? idx : 0);
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); prevPhoto(); });
+  lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); nextPhoto(); });
+
+  lightbox.addEventListener('click', (e) => {
+    if(e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') prevPhoto();
+    if(e.key === 'ArrowRight') nextPhoto();
+  });
+</script>
+
+</body>
+</html>
