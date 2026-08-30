@@ -154,6 +154,24 @@
   .mobile-menu a{font-family:'Anton',sans-serif; font-size:38px; text-transform:uppercase; letter-spacing:.02em;}
   .mobile-menu .nav-cta{align-self:flex-start; margin-top:12px;}
 
+  .mobile-close{
+  position:absolute;
+  top:24px;
+  right:24px;
+  font-size:36px;
+  line-height:1;
+  color:var(--ink);
+  background:none;
+  border:none;
+  cursor:pointer;
+  z-index:90;
+  transition:color .3s, transform .3s var(--ease);
+}
+.mobile-close:hover{
+  color:var(--brand);
+  transform:rotate(90deg);
+}
+  
   @media(max-width:900px){
     .nav-links, header .nav-cta{display:none;}
     .burger{display:flex;}
@@ -288,8 +306,8 @@ max-width: 800px;}
   .btn-modality:hover .arrow{transform:translateX(5px);}
 
 
-  /* ---------- experiênciia ---------- */
- /* ---------- profissionais / carrossel ---------- */
+/* ---------- EXPERIÊNCIA ---------- */
+/* ---------- PROFISSIONAIS / CARROSSEL ---------- */
 
 .professionals-carousel{
   position:relative;
@@ -314,30 +332,58 @@ max-width: 800px;}
   will-change:transform;
 }
 
+/* ---------- CARD ---------- */
+
 .professional-card{
   flex:0 0 calc(82% - 12px);
+
   display:grid;
-  grid-template-columns:minmax(280px, .9fr) 1.1fr;
+  grid-template-columns:minmax(280px,.9fr) 1.1fr;
+
   min-height:560px;
+
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
+
   background:var(--bg-1);
+
   overflow:hidden;
+  box-sizing:border-box;
 }
+
+/* ---------- FOTO ---------- */
 
 .professional-photo{
   position:relative;
+
+  width:100%;
+  height:100%;
   min-height:560px;
+
   overflow:hidden;
+
   background:var(--bg-2);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .professional-photo img{
   width:100%;
   height:100%;
-  object-fit:cover;
+
+  display:block;
+
+  /*
+   * Contain mantém a foto inteira dentro da moldura,
+   * evitando cortes.
+   */
+  object-fit:contain;
   object-position:center;
+
   transition:transform .8s var(--ease);
+
   pointer-events:none;
 }
 
@@ -345,14 +391,19 @@ max-width: 800px;}
   transform:scale(1.025);
 }
 
-/* Placeholder temporário enquanto não tiver a foto */
+/* ---------- PLACEHOLDER ---------- */
+
 .professional-photo-placeholder{
   width:100%;
   height:100%;
   min-height:560px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  box-sizing:border-box;
+
   background:
     repeating-linear-gradient(
       135deg,
@@ -361,64 +412,112 @@ max-width: 800px;}
       transparent 1px,
       transparent 14px
     ),
-    linear-gradient(150deg,var(--bg-2),var(--bg-3));
+    linear-gradient(
+      150deg,
+      var(--bg-2),
+      var(--bg-3)
+    );
+
   color:var(--ink-dim);
+
   font-size:11px;
   font-weight:600;
   letter-spacing:.14em;
   text-transform:uppercase;
 }
 
+/*
+ * Caso exista uma imagem dentro do placeholder,
+ * ela ocupa corretamente a área disponível.
+ */
+.professional-photo-placeholder img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+/* ---------- INFORMAÇÕES ---------- */
+
 .professional-info{
   display:flex;
   flex-direction:column;
-  justify-content:flex-end;
+
+  /*
+   * IMPORTANTE:
+   * as informações começam sempre no topo.
+   */
+  justify-content:flex-start;
+  align-items:flex-start;
+
   padding:56px;
+
+  min-height:560px;
+
+  box-sizing:border-box;
 }
 
-.professional-number{
-  color:var(--brand);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.18em;
-  margin-bottom:auto;
-}
+/* ---------- CARGO ---------- */
 
 .professional-role{
-  margin-bottom:16px;
+  margin:0 0 16px 0;
+
   color:var(--ink-dim);
+
   font-size:11px;
   font-weight:700;
+
   letter-spacing:.18em;
   text-transform:uppercase;
 }
 
+/* ---------- NOME ---------- */
+
 .professional-name{
+  margin:0 0 28px 0;
+
   font-family:'Anton',sans-serif;
+
   font-size:clamp(52px,6vw,92px);
+
   line-height:.95;
+
   text-transform:uppercase;
-  margin-bottom:28px;
 }
+
+/* ---------- DESCRIÇÃO ---------- */
 
 .professional-description{
   max-width:470px;
+
+  margin:0;
+
   color:#c9c7c1;
+
   font-size:15px;
   line-height:1.75;
 }
 
+/* ---------- INSTAGRAM ---------- */
+
 .professional-social{
   display:inline-flex;
   align-items:center;
+
   gap:8px;
+
   margin-top:28px;
+
   width:max-content;
+
   color:var(--ink);
+
   font-size:12px;
   font-weight:700;
+
   letter-spacing:.08em;
   text-transform:uppercase;
+
   transition:color .3s;
 }
 
@@ -426,98 +525,236 @@ max-width: 800px;}
   color:var(--brand);
 }
 
+/* ======================================================
+   CONTROLES
+   ====================================================== */
+
+/*
+ * O contador deixa de ocupar espaço.
+ */
+.carousel-counter{
+  display:none;
+}
+
+/*
+ * Retiramos o espaço inferior criado pelo .carousel-bottom
+ * e transformamos os controles em elementos laterais.
+ */
 .carousel-bottom{
+  position:absolute;
+
+  inset:0;
+
+  margin:0;
+
+  display:block;
+
+  pointer-events:none;
+}
+
+/*
+ * Botões ficam nas laterais do carrossel,
+ * centralizados verticalmente.
+ */
+.carousel-controls{
+  position:absolute;
+
+  top:50%;
+
+  left:0;
+  right:0;
+
+  transform:translateY(-50%);
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:30px;
-  gap:24px;
+
+  pointer-events:none;
 }
 
-.carousel-counter{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.12em;
-}
-
-.carousel-counter-current{
-  color:var(--brand);
-}
-
-.carousel-counter-total{
-  color:var(--ink-dim);
-}
-
-.carousel-controls{
-  display:flex;
-  gap:10px;
-}
+/* ---------- BOTÕES ---------- */
 
 .carousel-arrow{
   width:52px;
   height:52px;
+
   border:1px solid var(--line);
   border-radius:10px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:20px;
+
+  background:rgba(17,17,17,.78);
+
+  backdrop-filter:blur(8px);
+
   transition:
     background .3s,
     color .3s,
     border-color .3s,
     transform .3s;
+
+  pointer-events:auto;
+
+  z-index:10;
+}
+
+/*
+ * Botão anterior fica um pouco para fora
+ * da moldura da imagem.
+ */
+.carousel-arrow:first-child{
+  transform:translateX(-26px);
+}
+
+/*
+ * Botão próximo fica um pouco para fora
+ * da moldura da imagem.
+ */
+.carousel-arrow:last-child{
+  transform:translateX(26px);
 }
 
 .carousel-arrow:hover{
   background:var(--brand);
+
   border-color:var(--brand);
+
   color:#fff;
-  transform:translateY(-2px);
+}
+
+.carousel-arrow:first-child:hover{
+  transform:translateX(-26px) translateY(-2px);
+}
+
+.carousel-arrow:last-child:hover{
+  transform:translateX(26px) translateY(-2px);
 }
 
 .carousel-arrow:disabled{
-  opacity:.3;
+  opacity:.25;
+
   cursor:default;
-  transform:none;
-  background:transparent;
+
+  background:rgba(17,17,17,.5);
+
   border-color:var(--line);
+
   color:var(--ink);
+
+  transform:translateX(-26px);
 }
+
+.carousel-arrow:last-child:disabled{
+  transform:translateX(26px);
+}
+
+/* ======================================================
+   TABLET
+   ====================================================== */
 
 @media(max-width:900px){
 
   .professional-card{
     flex-basis:88%;
+
     grid-template-columns:1fr;
+
     min-height:auto;
   }
 
+  /* ---------- FOTO ---------- */
+
   .professional-photo{
-    min-height:auto;
+    width:100%;
+
+    height:auto;
+
+    min-height:0;
+
     aspect-ratio:4/5;
+
+    overflow:hidden;
+  }
+
+  .professional-photo img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
   }
 
   .professional-photo-placeholder{
+    width:100%;
+    height:100%;
+
     min-height:0;
+
     aspect-ratio:4/5;
   }
 
+  /* ---------- INFORMAÇÕES ---------- */
+
   .professional-info{
-    padding:36px 28px;
-    min-height:360px;
+    width:100%;
+
+    padding:36px 28px 42px;
+
+    min-height:auto;
+
+    justify-content:flex-start;
   }
 
-  .professional-number{
-    margin-bottom:70px;
+  .professional-role{
+    margin-bottom:16px;
   }
 
+  .professional-name{
+    margin-bottom:24px;
+  }
+
+  /* ---------- CONTROLES ---------- */
+
+  .carousel-arrow{
+    width:48px;
+    height:48px;
+  }
+
+  .carousel-arrow:first-child{
+    transform:translateX(10px);
+  }
+
+  .carousel-arrow:last-child{
+    transform:translateX(-10px);
+  }
+
+  .carousel-arrow:first-child:hover{
+    transform:translateX(10px) translateY(-2px);
+  }
+
+  .carousel-arrow:last-child:hover{
+    transform:translateX(-10px) translateY(-2px);
+  }
+
+  .carousel-arrow:disabled{
+    transform:translateX(10px);
+  }
+
+  .carousel-arrow:last-child:disabled{
+    transform:translateX(-10px);
+  }
 }
 
+/* ======================================================
+   CELULAR
+   ====================================================== */
+
 @media(max-width:640px){
+
   .professionals-carousel{
     margin-top:44px;
   }
@@ -530,50 +767,185 @@ max-width: 800px;}
     gap:14px;
   }
 
+  /* ---------- FOTO ---------- */
+
+  .professional-photo{
+    aspect-ratio:4/5;
+  }
+
+  /* ---------- INFORMAÇÕES ---------- */
+
   .professional-info{
     padding:28px 22px 32px;
   }
 
   .professional-name{
     font-size:52px;
+
+    margin-bottom:22px;
   }
 
+  .professional-description{
+    font-size:14px;
+    line-height:1.7;
+  }
+
+  /* ---------- CONTROLES ---------- */
+
   .carousel-arrow{
-    width:46px;
-    height:46px;
+    width:44px;
+    height:44px;
+
+    font-size:18px;
+  }
+
+  .carousel-arrow:first-child{
+    transform:translateX(6px);
+  }
+
+  .carousel-arrow:last-child{
+    transform:translateX(-6px);
+  }
+
+  .carousel-arrow:first-child:hover{
+    transform:translateX(6px);
+  }
+
+  .carousel-arrow:last-child:hover{
+    transform:translateX(-6px);
+  }
+
+  .carousel-arrow:disabled{
+    transform:translateX(6px);
+  }
+
+  .carousel-arrow:last-child:disabled{
+    transform:translateX(-6px);
   }
 }
 
+/* ======================================================
+   ACESSIBILIDADE
+   ====================================================== */
+
 @media(prefers-reduced-motion:reduce){
+
   .professionals-track,
   .professional-photo img{
     transition:none;
   }
-}
 
+}
   /* ---------- videos ---------- */
-  .video-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:64px;}
-  @media(max-width:900px){.video-cards{grid-template-columns:1fr;}}
+   /* ---------- vídeos ---------- */
+  .video-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:64px;
+  }
+
+  @media(max-width:900px){
+    .video-cards{
+      grid-template-columns:1fr;
+    }
+  }
+
   .video-card{
-    border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--bg-2);
-    transition:transform .4s var(--ease), border-color .4s;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--bg-2);
+    transition:
+      transform .4s var(--ease),
+      border-color .4s;
   }
-  .video-card:hover{transform:translateY(-6px); border-color:rgba(244,243,239,.25);}
-  .video-thumb{position:relative; aspect-ratio:16/9; overflow:hidden;}
-  .video-card:hover .video-thumb .media-placeholder{transform:scale(1.06);}
+
+  .video-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(244,243,239,.25);
+  }
+
+  /* Área da thumbnail */
+  .video-thumb{
+    position:relative;
+    aspect-ratio:16/9;
+    overflow:hidden;
+    background:var(--bg-2);
+  }
+
+  /* Imagem da thumbnail */
+  .video-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    transition:transform .6s var(--ease);
+  }
+
+  /* Zoom da thumbnail ao passar o mouse */
+  .video-card:hover .video-thumb img{
+    transform:scale(1.06);
+  }
+
+  /* Botão de play */
   .play-btn{
-    position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
-    background:rgba(17,17,17,0.55); backdrop-filter:blur(6px);
-    display:flex; align-items:center; justify-content:center; z-index:2;
-    border:1px solid rgba(244,243,239,0.35); transition:transform .35s var(--ease), background .35s;
+    position:absolute;
+    inset:0;
+    margin:auto;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:rgba(17,17,17,0.55);
+    backdrop-filter:blur(6px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+    border:1px solid rgba(244,243,239,0.35);
+    transition:
+      transform .35s var(--ease),
+      background .35s;
   }
-  .video-card:hover .play-btn{transform:scale(1.12); background:var(--brand);}
-  .video-meta{padding:18px 20px 22px;}
-  .video-tag{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; display:inline-block;}
-  .video-tag.jump{color:var(--jump);}
-  .video-tag.dance{color:var(--dance);}
-  .video-tag.brand{color:var(--brand);}
-  .video-title{font-size:16px; font-weight:700; line-height:1.35;}
+
+  /* Efeito no play ao passar o mouse */
+  .video-card:hover .play-btn{
+    transform:scale(1.12);
+    background:var(--brand);
+  }
+
+  /* Informações do vídeo */
+  .video-meta{
+    padding:18px 20px 22px;
+  }
+
+  .video-tag{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    display:inline-block;
+  }
+
+  .video-tag.jump{
+    color:var(--jump);
+  }
+
+  .video-tag.dance{
+    color:var(--dance);
+  }
+
+  .video-tag.brand{
+    color:var(--brand);
+  }
+
+  .video-title{
+    font-size:16px;
+    font-weight:700;
+    line-height:1.35;
+  }
 
   /* ---------- comercial ---------- */
   .commercial{
@@ -608,28 +980,187 @@ max-width: 800px;}
   .cert-copy{padding:60px 60px 60px 0;}
   @media(max-width:900px){.cert-copy{padding:0 0 60px;}}
 
-  /* ---------- galeria ---------- */
-  .gallery{display:grid; grid-template-columns:repeat(12,1fr); gap:16px;max-width: 1000px;
-margin-left: auto;
-margin-right: auto;}
-  .g-item{position:relative; overflow:hidden; border-radius:10px;}
-  .g-item:hover .media-placeholder{transform:scale(1.05);}
-  .g-item .g-cap{
-    position:absolute; left:14px; bottom:14px; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-    opacity:0; transform:translateY(8px); transition:all .4s var(--ease); color:var(--ink); z-index:2;
-    background:rgba(17,17,17,0.55); padding:6px 10px; border-radius:100px; backdrop-filter:blur(4px);
-  }
-  .g-item:hover .g-cap{opacity:1; transform:translateY(0);}
-  .g1{grid-column:span 5; grid-row:span 2; aspect-ratio:4/5;}
-  .g2{grid-column:span 4; aspect-ratio:4/3;}
-  .g3{grid-column:span 3; aspect-ratio:3/4;}
-  .g4{grid-column:span 3; aspect-ratio:1/1;}
-  .g5{grid-column:span 4; aspect-ratio:4/3;}
-  @media(max-width:900px){
-    .gallery{grid-template-columns:repeat(2,1fr);}
-    .g1,.g2,.g3,.g4,.g5, {grid-column:span 1; grid-row:span 1; aspect-ratio:4/5;}
+ /* ---------- galeria ---------- */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:16px;
+  max-width:1200px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.g-item{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  aspect-ratio:4/5;
+}
+.g-item .media-placeholder{
+  width:100%; height:100%; border-radius:0;
+  transition:transform .6s var(--ease);
+}
+.g-item:hover .media-placeholder{transform:scale(1.05);}
+.g-item .g-cap{
+  position:absolute; left:14px; bottom:14px; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  opacity:0; transform:translateY(8px); transition:all .4s var(--ease); color:var(--ink); z-index:2;
+  background:rgba(17,17,17,0.55); padding:6px 10px; border-radius:100px; backdrop-filter:blur(4px);
+}
+.g-item:hover .g-cap{opacity:1; transform:translateY(0);}
+
+/* só o desktop vira uma linha única de 5 */
+@media(min-width:1024px){
+  .gallery{grid-template-columns:repeat(5, 1fr);}
+}
+
+/* ---------- card CTA "Ver galeria completa" ---------- */
+.gallery-cta{
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(160deg, var(--bg-2), var(--bg-3));
+  border:1px solid var(--line);
+  text-decoration:none; color:var(--ink);
+  transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+  cursor:pointer;
+}
+.gallery-cta:hover{
+  transform:scale(1.02);
+  border-color:rgba(244,243,239,.25);
+  box-shadow:0 20px 60px -20px rgba(0,0,0,.4);
+}
+.gallery-cta-inner{
+  display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;
+}
+.gallery-cta-count{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(34px,4vw,52px);
+  line-height:1; color:var(--brand); letter-spacing:0.02em;
+}
+.gallery-cta-label{
+  font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--ink-dim); transition:color .3s;
+}
+.gallery-cta:hover .gallery-cta-label{color:var(--ink);}
+.gallery-cta .arrow{transition:transform .35s var(--ease); display:inline-block;}
+.gallery-cta:hover .arrow{transform:translateX(5px);}
+
+.g-item .media-placeholder img{
+  width:100%; height:100%; object-fit:cover; object-position:center; display:block;
+}
+  /* ===== TABLET (768px–1100px) — 3 colunas ===== */
+  @media (min-width:769px) and (max-width:1100px){
+    .gallery{
+      grid-template-columns:repeat(3, 1fr);
+      grid-template-rows:repeat(3, 180px);
+    }
+    .g1{grid-column:1/3; grid-row:1/3;}
+    .g2{grid-column:3/4; grid-row:1/2;}
+    .g3{grid-column:3/4; grid-row:2/3;}
+    .g4{grid-column:1/2; grid-row:3/4;}
+    .g5{grid-column:2/4; grid-row:3/4;}
+    .gallery-bar{display:none;}
+    .g-item.g5.gallery-cta{display:flex;}
   }
 
+  /* ===== MOBILE (<768px) — 1 coluna, alturas variadas ===== */
+  @media (max-width:768px){
+    .gallery{
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    .g-item{border-radius:12px;}
+    .g1{aspect-ratio:3/4;}
+    .g2{aspect-ratio:16/9;}
+    .g3{aspect-ratio:1/1;}
+    .g4{aspect-ratio:4/5;}
+    .g5{aspect-ratio:16/9;}
+    .gallery-bar{display:none;}
+    .g-item.g5.gallery-cta{display:flex;}
+  }
+
+  /* ---------- card CTA "Ver galeria completa" ---------- */
+  .gallery-cta{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(160deg, var(--bg-2), var(--bg-3));
+    border:1px solid var(--line);
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+    cursor:pointer;
+  }
+  .gallery-cta:hover{
+    transform:scale(1.02);
+    border-color:rgba(244,243,239,.25);
+    box-shadow:0 20px 60px -20px rgba(0,0,0,.4);
+  }
+  .gallery-cta-inner{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    text-align:center;
+  }
+  .gallery-cta-count{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(48px,5vw,72px);
+    line-height:1;
+    color:var(--brand);
+    letter-spacing:0.02em;
+  }
+  .gallery-cta-label{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    transition:color .3s;
+  }
+  .gallery-cta:hover .gallery-cta-label{color:var(--ink);}
+  .gallery-cta .arrow{transition:transform .35s var(--ease); display:inline-block;}
+  .gallery-cta:hover .arrow{transform:translateX(5px);}
+
+  /* ---------- barra "Ver galeria completa" (desktop) ---------- */
+  .gallery-bar{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    margin-top:16px;
+    padding:22px 32px;
+    border-radius:14px;
+    border:1px solid var(--line);
+    background:linear-gradient(160deg, var(--bg-2), var(--bg-3));
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    transition:all .35s var(--ease);
+    text-decoration:none;
+    width:100%;
+  }
+  .gallery-bar:hover{
+    border-color:rgba(244,243,239,.25);
+    color:var(--ink);
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px -10px rgba(0,0,0,0.3);
+  }
+  .gallery-bar .arrow{
+    transition:transform .35s var(--ease);
+    display:inline-block;
+    margin-left:6px;
+  }
+  .gallery-bar:hover .arrow{transform:translateX(5px);}
+
+  /* Garante que a imagem da galeria ocupe a célula toda */
+  .g-item .media-placeholder img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+  }
+    .g1,.g2,.g3,.g4,.g5 {grid-column:span 1; grid-row:span 1; aspect-ratio:4/5;}
+  }
   /* ---------- cta final ---------- */
   .final-cta{
     text-align:center; padding:180px 0 160px; position:relative; overflow:hidden;
@@ -668,6 +1199,7 @@ margin-right: auto;}
         <li><a href="#a-boom">A Boom</a></li>
         <li><a href="#modalidades">Modalidades</a></li>
         <li><a href="#experiencia">Experiência</a></li>
+        <li><a href="#galeria">Galeria</a></li>
         <li><a href="#licenciamento">Licencie</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -680,11 +1212,14 @@ margin-right: auto;}
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileCloseBtn" aria-label="Fechar menu">&times;</button>
   <a href="#a-boom">A Boom</a>
   <a href="#modalidades">Modalidades</a>
   <a href="#experiencia">Experiência</a>
+  <a href="#galeria">Galeria</a>
   <a href="#licenciamento">Licencie</a>
   <a href="#contato">Contato</a>
+</div>
   
 </div>
 
@@ -697,7 +1232,6 @@ margin-right: auto;}
       class="hero-image"
       >
     </div>
-  </div>
   <div class="hero-grain"></div>
   <div class="hero-tag"><span>Fitness</span><span>·</span><span>Dança</span><span>·</span><span>Movimento</span></div>
 
@@ -719,7 +1253,6 @@ margin-right: auto;}
         <a href="#alunos" class="btn btn-outline">Seja um Aluno BOOM</a>        
       </div>
     </div>
-  </div>
 </section>
 
 <!-- ============ A BOOM ============ -->
@@ -802,131 +1335,119 @@ margin-right: auto;}
   </div>
 </section>
 
-<!-- ============ EQUIPEE BOOM ============ -->
+<!-- ============ EQUIPE BOOM ============ -->
 <section class="section-pad" id="experiencia">
   <div class="container">
 
     <p class="eyebrow reveal">03 — EQUIPE BOOM</p>
-    <h2 class="display reveal" style="font-size:clamp(34px,5vw,64px); margin-top:18px; text-transform:none; font-family:'Inter',sans-serif; font-weight:800; max-width:760px;">
+
+    <h2
+      class="display reveal"
+      style="
+        font-size:clamp(34px,5vw,64px);
+        margin-top:18px;
+        text-transform:none;
+        font-family:'Inter',sans-serif;
+        font-weight:800;
+        max-width:760px;
+      "
+    >
       Venha conhecer a Família BOOM!
     </h2>
 
-
-
-    
-
-   <h2
-  class="display reveal"
-  style="
-    font-size:clamp(44px,7vw,96px);
-    margin-top:18px;
-    max-width:900px;
-  "
->
-  QUEM FAZ A<br>
-  <span style="color:var(--brand);">BOOM SE MOVER.</span>
-</h2>
-
-<h2
-  class="display reveal"
-  style="
-    font-size:clamp(34px,5vw,64px);
-    margin-top:18px;
-    text-transform:none;
-    font-family:'Inter',sans-serif;
-    font-weight:800;
-    max-width:760px;
-  "
->
- 
-</h2>
+    <h2
+      class="display reveal"
+      style="
+        font-size:clamp(44px,7vw,96px);
+        margin-top:18px;
+        max-width:900px;
+      "
+    >
+      QUEM FAZ A<br>
+      <span style="color:var(--brand);">BOOM SE MOVER.</span>
+    </h2>
 
     <div class="professionals-carousel reveal">
 
+      <!-- ============ ÁREA DO CARROSSEL ============ -->
       <div
         class="professionals-viewport"
         id="professionalsViewport"
         aria-label="Profissionais da Boom"
       >
 
-        <div class="professionals-track" id="professionalsTrack">
+        <div
+          class="professionals-track"
+          id="professionalsTrack"
+        >
 
-          <!-- PROFISSIONAL 01 -->
+          <!-- ============ PROFISSIONAL 01 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-              <!--
-              Quando tiver a foto, substitua o placeholder abaixo por:
-
               <img
-                src="raphael.jpg"
-                alt="Raphael conduzindo uma aula BOOM Dance"
+                src="Rapha.Bruno.apresentacao.jpeg"
+                alt="Foto de estúdio do Raphael Bruno com roupa florida"
               >
-              -->
-
-              <div class="professional-photo-placeholder">
-                FOTO — RAPHAEL
-              </div>
             </div>
 
             <div class="professional-info">
 
-              <span class="professional-number">01</span>
+              <p class="professional-role">
+                Fundador • Professor • Coreógrafo
+              </p>
+
+              <h3 class="professional-name">
+                Raphael Bruno
+              </h3>
+
+              <p class="professional-description">
+                Professor, coreógrafo e sócio-fundador da Boom Company, atua com dança e movimento desde 2011.<br><br>
+                Formado em Educação Física, leva para o Boom Dance e Boom Jump muita energia, carisma e criatividade, transformando cada aula em uma experiência única.
+              </p>
+
+              <a
+                href="https://www.instagram.com/raphaelbrunon/"
+                class="professional-social"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram <span>→</span>
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <!-- ============ PROFISSIONAL 02 ============ -->
+          <article class="professional-card">
+
+            <div class="professional-photo">
+              <img
+                src="wallyson.apresentacao.2.0.jpeg"
+                alt="Wallyson Santos em frente a LoveFunk"
+              >
+            </div>
+
+            <div class="professional-info">
 
               <p class="professional-role">
                 Fundador • Professor
               </p>
 
               <h3 class="professional-name">
-                Raphael
+                Wallyson Santos
               </h3>
 
               <p class="professional-description">
-                Breve apresentação do Raphael e da sua relação com a BOOM.
-                Substitua este conteúdo pela descrição oficial posteriormente.
+CEO e coreógrafo da BOOM Company, atua na área de Educação Física desde 2011, especialista em aulas fitness.</p>
+          
+Com experiência em grandes eventos do segmento, como Fitness Brasil e ENAFs, traz uma trajetória marcada pela experiência prática, criatividade e desenvolvimento de experiências no universo fitness.
               </p>
 
               <a
-                href="https://www.instagram.com/raphaelbruno/"
-                class="professional-social"
-                target="_blank"
-                rel="noopener"
-              >
-                Instagram <span></span>
-              </a>
-
-            </div>
-          </article>
-
-
-          <!-- PROFISSIONAL 02 -->
-          <article class="professional-card">
-
-            <div class="professional-photo">
-              <div class="professional-photo-placeholder">
-                FOTO — PROFISSIONAL 02
-              </div>
-            </div>
-
-            <div class="professional-info">
-
-              <span class="professional-number">02</span>
-
-              <p class="professional-role">
-                Professor • BOOM Dance
-              </p>
-
-              <h3 class="professional-name">
-                Nome
-              </h3>
-
-              <p class="professional-description">
-                Pequena apresentação do profissional. Idealmente uma ou duas
-                frases, mantendo esta área simples e editorial.
-              </p>
-
-              <a
-                href="#"
+                href="https://www.instagram.com/wallysonsantoss/"
                 class="professional-social"
                 target="_blank"
                 rel="noopener"
@@ -935,28 +1456,144 @@ margin-right: auto;}
               </a>
 
             </div>
+
           </article>
 
 
-          <!-- PROFISSIONAL 03 -->
+          <!-- ============ PROFISSIONAL 03 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
-              <div class="professional-photo-placeholder">
-                FOTO — PROFISSIONAL 03
-              </div>
+              <img
+                src="reh.apresentacao.jpeg"
+                alt="Foto profissional de Reh Honorato"
+              >
             </div>
 
             <div class="professional-info">
-
-              <span class="professional-number">03</span>
 
               <p class="professional-role">
                 Professor • BOOM Dance
               </p>
 
               <h3 class="professional-name">
-                Nome
+                Reh Honorato
+              </h3>
+
+              <p class="professional-description">
+                Profissional de Educação Física (UNIP 2019).<br>
+                Pós-graduação em Fisiologia do Exercício (UNIGUAÇU 2023).<br>
+                Personal trainer e coreógrafa na empresa Boom Company.
+              </p>
+
+              <a
+                href="https://www.instagram.com/rehhonorato/"
+                class="professional-social"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram <span>→</span>
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <!-- ============ PROFISSIONAL 04 ============ -->
+          <article class="professional-card">
+
+            <div class="professional-photo">
+              <img
+                src="talita.apresentacao.jpeg"
+                alt="Foto profissional de Talita Iacona"
+              >
+            </div>
+
+            <div class="professional-info">
+
+              <p class="professional-role">
+                Professor • BOOM Dance
+              </p>
+
+              <h3 class="professional-name">
+                Talita Iacona
+              </h3>
+
+              <p class="professional-description">
+                Talita Iacoma faz parte do time de professores da Boom Company, contribuindo para a construção de experiências que unem movimento, energia e conexão. Ao lado da equipe Boom, ajuda a levar a essência da marca para cada aula.
+              </p>
+
+              <a
+                href="https://www.instagram.com/talitaiacona?igsi=MzRvZjlyd3ZlMDVt"
+                class="professional-social"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram <span>→</span>
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <!-- ============ PROFISSIONAL 05 ============ -->
+          <article class="professional-card">
+
+            <div class="professional-photo">
+              <img
+                src="pardal.apresentacao.jpeg"
+                alt="Foto profissional de Thiago Pardal"
+              >
+            </div>
+
+            <div class="professional-info">
+
+              <p class="professional-role">
+                Professor • BOOM Dance
+              </p>
+
+              <h3 class="professional-name">
+                Thiago Pardal
+              </h3>
+
+              <p class="professional-description">
+                Thiago Pardal faz parte do time de professores da Boom Company, contribuindo para levar movimento, energia e conexão para cada experiência. Ao lado da equipe Boom, participa da construção de aulas que refletem a essência e a identidade da marca.
+              </p>
+
+              <a
+                href="https://www.instagram.com/thiagopardal.personal/"
+                class="professional-social"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram <span>→</span>
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <!-- ============ PROFISSIONAL 06 ============ -->
+          <article class="professional-card">
+
+            <div class="professional-photo">
+              <img
+                src="debora.apresentacao.jpeg"
+                alt="Foto profissional de Debora Silva"
+              >
+            </div>
+
+            <div class="professional-info">
+
+              <p class="professional-role">
+                Professor • BOOM Dance
+              </p>
+
+              <h3 class="professional-name">
+                Debora Silva
               </h3>
 
               <p class="professional-description">
@@ -965,7 +1602,7 @@ margin-right: auto;}
               </p>
 
               <a
-                href="#"
+                href="https://www.instagram.com/deborasilvaprof/"
                 class="professional-social"
                 target="_blank"
                 rel="noopener"
@@ -974,123 +1611,11 @@ margin-right: auto;}
               </a>
 
             </div>
+
           </article>
 
 
-          <!-- PROFISSIONAL 04 -->
-          <article class="professional-card">
-
-            <div class="professional-photo">
-              <div class="professional-photo-placeholder">
-                FOTO — PROFISSIONAL 04
-              </div>
-            </div>
-
-            <div class="professional-info">
-
-              <span class="professional-number">04</span>
-
-              <p class="professional-role">
-                Professor • BOOM Dance
-              </p>
-
-              <h3 class="professional-name">
-                Nome
-              </h3>
-
-              <p class="professional-description">
-                Pequena apresentação do profissional.
-              </p>
-
-              <a
-                href="#"
-                class="professional-social"
-                target="_blank"
-                rel="noopener"
-              >
-                Instagram <span>→</span>
-              </a>
-
-            </div>
-          </article>
-
-            <!-- PROFISSIONAL 05 -->
-          <article class="professional-card">
-
-            <div class="professional-photo">
-              <div class="professional-photo-placeholder">
-                FOTO — PROFISSIONAL 05
-              </div>
-            </div>
-
-            <div class="professional-info">
-
-              <span class="professional-number">05</span>
-
-              <p class="professional-role">
-                Professor • BOOM Dance
-              </p>
-
-              <h3 class="professional-name">
-                Nome
-              </h3>
-
-              <p class="professional-description">
-                Pequena apresentação do profissional. Depois basta trocar
-                nome, função, descrição, fotografia e Instagram.
-              </p>
-
-              <a
-                href="#"
-                class="professional-social"
-                target="_blank"
-                rel="noopener"
-              >
-                Instagram <span>→</span>
-              </a>
-
-            </div>
-          </article>
-
-           <!-- PROFISSIONAL 06 -->
-          <article class="professional-card">
-
-            <div class="professional-photo">
-              <div class="professional-photo-placeholder">
-                FOTO — PROFISSIONAL 06
-              </div>
-            </div>
-
-            <div class="professional-info">
-
-              <span class="professional-number">06</span>
-
-              <p class="professional-role">
-                Professor • BOOM Dance
-              </p>
-
-              <h3 class="professional-name">
-                Nome
-              </h3>
-
-              <p class="professional-description">
-                Pequena apresentação do profissional. Depois basta trocar
-                nome, função, descrição, fotografia e Instagram.
-              </p>
-
-              <a
-                href="#"
-                class="professional-social"
-                target="_blank"
-                rel="noopener"
-              >
-                Instagram <span>→</span>
-              </a>
-
-            </div>
-          </article>
-
-           <!-- PROFISSIONAL 07 -->
+          <!-- ============ PROFISSIONAL 07 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
@@ -1101,8 +1626,6 @@ margin-right: auto;}
 
             <div class="professional-info">
 
-              <span class="professional-number">07</span>
-
               <p class="professional-role">
                 Professor • BOOM Dance
               </p>
@@ -1126,9 +1649,11 @@ margin-right: auto;}
               </a>
 
             </div>
+
           </article>
 
-           <!-- PROFISSIONAL 08 -->
+
+          <!-- ============ PROFISSIONAL 08 ============ -->
           <article class="professional-card">
 
             <div class="professional-photo">
@@ -1139,8 +1664,6 @@ margin-right: auto;}
 
             <div class="professional-info">
 
-              <span class="professional-number">08</span>
-
               <p class="professional-role">
                 Professor • BOOM Dance
               </p>
@@ -1164,16 +1687,17 @@ margin-right: auto;}
               </a>
 
             </div>
+
           </article>
 
         </div>
       </div>
 
 
-      <!-- CONTROLES -->
+      <!-- ============ CONTROLES ============ -->
       <div class="carousel-bottom">
 
-        <div class="carousel-counter" aria-live="polite">
+        <div class="carousel-counter">
           <span
             class="carousel-counter-current"
             id="professionalCurrent"
@@ -1187,31 +1711,32 @@ margin-right: auto;}
             class="carousel-counter-total"
             id="professionalTotal"
           >
-            04
+            08
           </span>
         </div>
 
         <div class="carousel-controls">
 
           <button
+            type="button"
             class="carousel-arrow"
             id="professionalPrev"
-            type="button"
             aria-label="Profissional anterior"
           >
             ←
           </button>
 
           <button
+            type="button"
             class="carousel-arrow"
             id="professionalNext"
-            type="button"
             aria-label="Próximo profissional"
           >
             →
           </button>
 
         </div>
+
       </div>
 
     </div>
@@ -1219,45 +1744,100 @@ margin-right: auto;}
   </div>
 </section>
 
-<div class="container"><div class="divider"></div></div>
-
 <!-- ============ VÍDEOS ============ -->
 <section class="section-pad" id="videos">
   <div class="container">
     <p class="eyebrow reveal">04 — Conteúdo</p>
-    <h2 class="display reveal" style="font-size:clamp(38px,6vw,80px); margin-top:18px;">ASSISTA.<br>MOVIMENTE-SE.<br>REPITA.</h2>
+
+    <h2 class="display reveal" style="font-size:clamp(38px,6vw,80px); margin-top:18px;">
+      ASSISTA.<br>MOVIMENTE-SE.<br>REPITA.
+    </h2>
 
     <div class="video-cards">
-      <a href="#" class="video-card reveal" aria-label="Assistir vídeo no YouTube (link provisório)">
+
+      <!-- VÍDEO 01 — BOOM DANCE -->
+      <a 
+        href="https://youtu.be/KM42j9D1Sxs?si=I1pgd9JOfxNG6paV" 
+        class="video-card reveal" 
+        target="_blank"
+        rel="noopener"
+        aria-label="Assistir vídeo Boom Dance no YouTube"
+      >
         <div class="video-thumb">
-          <div class="media-placeholder"><span>THUMBNAIL — VÍDEO</span></div>
-          <div class="play-btn">▶️</div>
+
+          <!-- IMAGEM / THUMBNAIL DO VÍDEO -->
+          <img 
+            src="boom.dance.video.jpeg"
+            alt="Thumbnail Boom Dance — Coreografia As Cowgirls"
+          >
+
         </div>
-        <div class="video-meta">
-          <span class="video-tag jump">Boom Jump</span>
-          <p class="video-title">Aula completa — nível iniciante <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
-        </div>
-      </a>
-      <a href="#" class="video-card reveal" aria-label="Assistir vídeo no YouTube (link provisório)">
-        <div class="video-thumb">
-          <div class="media-placeholder"><span>THUMBNAIL — VÍDEO</span></div>
-          <div class="play-btn">▶️</div>
-        </div>
+
         <div class="video-meta">
           <span class="video-tag dance">Boom Dance</span>
-          <p class="video-title">Coreografia da semana <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
+
+          <p class="video-title">
+            COREOGRÁFIA - AS COWGIRLS
+          </p>
         </div>
       </a>
-      <a href="#" class="video-card reveal" aria-label="Assistir vídeo no YouTube (link provisório)">
+
+
+      <!-- VÍDEO 02 — BOOM JUMP -->
+      <a 
+        href="https://youtu.be/4X6XQB9b3ho?si=t8TBI5z1YVEgToiv" 
+        class="video-card reveal" 
+        target="_blank"
+        rel="noopener"
+        aria-label="Assistir vídeo Boom Jump no YouTube"
+      >
         <div class="video-thumb">
-          <div class="media-placeholder"><span>THUMBNAIL — VÍDEO</span></div>
-          <div class="play-btn">▶️</div>
+
+          <!-- IMAGEM / THUMBNAIL DO VÍDEO -->
+          <img 
+            src="boom.jump.video.jpeg"
+            alt="Thumbnail Boom Jump — Aula completa"
+          >
+
         </div>
+
         <div class="video-meta">
-          <span class="video-tag brand">Bastidores</span>
-          <p class="video-title">Um dia dentro da Boom <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
+          <span class="video-tag jump">Boom Jump</span>
+
+          <p class="video-title">
+            AULA COMPLETE - BOOM JUMP
+          </p>
         </div>
       </a>
+
+
+      <!-- VÍDEO 03 — BOOM DANCE -->
+      <a 
+        href="https://youtu.be/c4l8uk0nxck?si=yU75W8n9x-ds0klx" 
+        class="video-card reveal" 
+        target="_blank"
+        rel="noopener"
+        aria-label="Assistir vídeo Boom Dance no YouTube"
+      >
+        <div class="video-thumb">
+
+          <!-- IMAGEM / THUMBNAIL DO VÍDEO -->
+          <img 
+            src="boom.dance.video.0.2.jpeg"
+            alt="Thumbnail Boom Dance — Não Para"
+          >
+
+        </div>
+
+        <div class="video-meta">
+          <span class="video-tag dance">Boom Dance</span>
+
+          <p class="video-title">
+            COREOGRAFIA - NÃO PARA
+          </p>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -1318,12 +1898,40 @@ margin-right: auto;}
     <h2 class="display reveal" style="font-size:clamp(34px,5vw,60px); margin:18px 0 50px; text-transform:none; font-family:'Inter',sans-serif; font-weight:800;">Um pouco mais da nossa história.</h2>
 
     <div class="gallery">
-      <div class="g-item g1 reveal"><div class="media-placeholder"><span>GALERIA 01</span></div><span class="g-cap">Boom Jump</span></div>
-      <div class="g-item g2 reveal"><div class="media-placeholder"><span>GALERIA 02</span></div><span class="g-cap">Comunidade</span></div>
-      <div class="g-item g3 reveal"><div class="media-placeholder"><span>GALERIA 03</span></div><span class="g-cap">Boom Dance</span></div>
-      <div class="g-item g4 reveal"><div class="media-placeholder"><span>GALERIA 04</span></div><span class="g-cap">Energia</span></div>
-      <div class="g-item g5 reveal"><div class="media-placeholder"><span>GALERIA 05</span></div><span class="g-cap">Movimento</span></div>
+      <div class="g-item g1 reveal">
+        <div class="media-placeholder" role="img" aria-label="Foto da galeria 01">
+          <img src="galeria-01.jpg" alt="Boom Jump" loading="lazy">
+        </div>
+        <span class="g-cap">Boom Jump</span>
       </div>
+      <div class="g-item g2 reveal">
+        <div class="media-placeholder" role="img" aria-label="Foto da galeria 02">
+          <img src="galeria-02.jpg" alt="Comunidade" loading="lazy">
+        </div>
+        <span class="g-cap">Comunidade</span>
+      </div>
+      <div class="g-item g3 reveal">
+        <div class="media-placeholder" role="img" aria-label="Foto da galeria 03">
+          <img src="galeria-03.jpg" alt="Boom Dance" loading="lazy">
+        </div>
+        <span class="g-cap">Boom Dance</span>
+      </div>
+      <div class="g-item g4 reveal">
+        <div class="media-placeholder" role="img" aria-label="Foto da galeria 04">
+          <img src="galeria-04.jpg" alt="Energia" loading="lazy">
+        </div>
+        <span class="g-cap">Energia</span>
+      </div>
+      <a href="galeria-boom.html" class="g-item g5 reveal gallery-cta" aria-label="Ver galeria completa">
+        <div class="gallery-cta-inner">
+          <span class="gallery-cta-count">+24</span>
+          <span class="gallery-cta-label">Ver galeria completa <span class="arrow">→</span></span>
+        </div>
+      </a>
+    </div>
+    <a href="galeria-boom.html" class="gallery-bar reveal" aria-label="Ver galeria completa">
+      <span>Ver galeria completa <span class="arrow">→</span></span>
+    </a>
   </div>
 </section>
 
@@ -1380,7 +1988,7 @@ margin-right: auto;}
     </div>
   </div>
 </footer>
-
+  
 <script>
   // --- navbar scroll state ---
   const header = document.getElementById('siteHeader');
@@ -1402,6 +2010,13 @@ margin-right: auto;}
     burger.classList.remove('open');
     document.body.style.overflow = '';
   }));
+  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+mobileCloseBtn.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  burger.setAttribute('aria-expanded', false);
+  document.body.style.overflow = '';
+});
 
   // --- scroll reveal ---
   const io = new IntersectionObserver((entries) => {
@@ -1433,7 +2048,8 @@ margin-right: auto;}
     });
   });
 
-  // ======================================================
+
+// ======================================================
 // CARROSSEL — PROFISSIONAIS
 // ======================================================
 
@@ -1459,181 +2075,341 @@ const professionalTotal =
   document.getElementById('professionalTotal');
 
 
-let professionalIndex = 0;
-
-
-// Número total
-professionalTotal.textContent =
-  String(professionalCards.length).padStart(2, '0');
-
-
-// Descobre quanto cada slide precisa andar
-function getProfessionalStep(){
-
-  if(!professionalCards.length) return 0;
-
-  const cardWidth =
-    professionalCards[0].getBoundingClientRect().width;
-
-  const styles =
-    getComputedStyle(professionalsTrack);
-
-  const gap =
-    parseFloat(styles.gap) || 0;
-
-  return cardWidth + gap;
-}
-
-
-// Atualiza posição
-function updateProfessionalsCarousel(){
-
-  const step = getProfessionalStep();
-
-  professionalsTrack.style.transform =
-    `translateX(-${professionalIndex * step}px)`;
-
-  professionalCurrent.textContent =
-    String(professionalIndex + 1).padStart(2, '0');
-
-
-  professionalPrev.disabled =
-    professionalIndex === 0;
-
-  professionalNext.disabled =
-    professionalIndex === professionalCards.length - 1;
-}
-
-
-// Próximo
-professionalNext.addEventListener('click', () => {
-
-  if(professionalIndex < professionalCards.length - 1){
-
-    professionalIndex++;
-
-    updateProfessionalsCarousel();
-  }
-});
-
-
-// Anterior
-professionalPrev.addEventListener('click', () => {
-
-  if(professionalIndex > 0){
-
-    professionalIndex--;
-
-    updateProfessionalsCarousel();
-  }
-});
-
-
-// Teclado
-professionalsViewport.setAttribute('tabindex','0');
-
-professionalsViewport.addEventListener('keydown', (event) => {
-
-  if(event.key === 'ArrowRight'){
-
-    professionalNext.click();
-  }
-
-  if(event.key === 'ArrowLeft'){
-
-    professionalPrev.click();
-  }
-});
-
-
 // ======================================================
-// DRAG / SWIPE
+// VERIFICA SE O CARROSSEL EXISTE
 // ======================================================
 
-let dragStartX = 0;
-let dragCurrentX = 0;
-let dragging = false;
+if (
+  professionalsViewport &&
+  professionalsTrack &&
+  professionalCards.length &&
+  professionalPrev &&
+  professionalNext
+) {
+
+  let professionalIndex = 0;
 
 
-professionalsViewport.addEventListener('pointerdown', (event) => {
+  // ====================================================
+  // NÚMERO TOTAL DE PROFISSIONAIS
+  // ====================================================
 
-  dragging = true;
+  if (professionalTotal) {
 
-  dragStartX = event.clientX;
+    professionalTotal.textContent =
+      String(professionalCards.length).padStart(2, '0');
 
-  dragCurrentX = event.clientX;
-
-  professionalsViewport.classList.add('dragging');
-
-  professionalsViewport.setPointerCapture(event.pointerId);
-});
+  }
 
 
-professionalsViewport.addEventListener('pointermove', (event) => {
+  // ====================================================
+  // DESCOBRE QUANTO CADA SLIDE PRECISA ANDAR
+  // ====================================================
 
-  if(!dragging) return;
+  function getProfessionalStep(){
 
-  dragCurrentX = event.clientX;
-});
+    if(!professionalCards.length) return 0;
+
+    const cardWidth =
+      professionalCards[0].getBoundingClientRect().width;
+
+    const styles =
+      getComputedStyle(professionalsTrack);
+
+    const gap =
+      parseFloat(styles.gap) || 0;
+
+    return cardWidth + gap;
+  }
 
 
-professionalsViewport.addEventListener('pointerup', () => {
+  // ====================================================
+  // ATUALIZA POSIÇÃO DO CARROSSEL
+  // ====================================================
 
-  if(!dragging) return;
+  function updateProfessionalsCarousel(){
 
-  dragging = false;
+    const step =
+      getProfessionalStep();
 
-  professionalsViewport.classList.remove('dragging');
-
-  const difference =
-    dragCurrentX - dragStartX;
+    professionalsTrack.style.transform =
+      `translate3d(-${professionalIndex * step}px, 0, 0)`;
 
 
-  // Distância mínima necessária para mudar
-  if(Math.abs(difference) > 60){
+    // Atualiza contador
 
-    // Arrastou para esquerda
+    if (professionalCurrent) {
+
+      professionalCurrent.textContent =
+        String(professionalIndex + 1).padStart(2, '0');
+
+    }
+
+
+    // Atualiza botão anterior
+
+    professionalPrev.disabled =
+      professionalIndex === 0;
+
+
+    // Atualiza botão próximo
+
+    professionalNext.disabled =
+      professionalIndex === professionalCards.length - 1;
+
+  }
+
+
+  // ====================================================
+  // PRÓXIMO PROFISSIONAL
+  // ====================================================
+
+  professionalNext.addEventListener('click', () => {
+
     if(
-      difference < 0 &&
-      professionalIndex < professionalCards.length - 1
+      professionalIndex <
+      professionalCards.length - 1
     ){
+
       professionalIndex++;
+
+      updateProfessionalsCarousel();
+
     }
 
-    // Arrastou para direita
-    else if(
-      difference > 0 &&
-      professionalIndex > 0
-    ){
+  });
+
+
+  // ====================================================
+  // PROFISSIONAL ANTERIOR
+  // ====================================================
+
+  professionalPrev.addEventListener('click', () => {
+
+    if(professionalIndex > 0){
+
       professionalIndex--;
+
+      updateProfessionalsCarousel();
+
     }
-  }
+
+  });
+
+
+  // ====================================================
+  // CONTROLE PELO TECLADO
+  // ====================================================
+
+  professionalsViewport.setAttribute(
+    'tabindex',
+    '0'
+  );
+
+  professionalsViewport.addEventListener(
+    'keydown',
+    (event) => {
+
+      if(event.key === 'ArrowRight'){
+
+        event.preventDefault();
+
+        professionalNext.click();
+
+      }
+
+      if(event.key === 'ArrowLeft'){
+
+        event.preventDefault();
+
+        professionalPrev.click();
+
+      }
+
+    }
+  );
+
+
+  // ====================================================
+  // DRAG / SWIPE
+  // ====================================================
+
+  let dragStartX = 0;
+  let dragCurrentX = 0;
+  let dragging = false;
+
+
+  // ----------------------------------------------------
+  // COMEÇA O DRAG
+  // ----------------------------------------------------
+
+  professionalsViewport.addEventListener(
+    'pointerdown',
+    (event) => {
+
+      /*
+       * Não inicia o arraste quando o usuário estiver
+       * clicando no Instagram ou em algum botão.
+       */
+
+      if(
+        event.target.closest('a') ||
+        event.target.closest('button')
+      ){
+
+        return;
+
+      }
+
+
+      dragging = true;
+
+      dragStartX =
+        event.clientX;
+
+      dragCurrentX =
+        event.clientX;
+
+
+      professionalsViewport.classList.add(
+        'dragging'
+      );
+
+
+      professionalsViewport.setPointerCapture(
+        event.pointerId
+      );
+
+    }
+  );
+
+
+  // ----------------------------------------------------
+  // MOVIMENTO DO DRAG
+  // ----------------------------------------------------
+
+  professionalsViewport.addEventListener(
+    'pointermove',
+    (event) => {
+
+      if(!dragging) return;
+
+      dragCurrentX =
+        event.clientX;
+
+    }
+  );
+
+
+  // ----------------------------------------------------
+  // FINALIZA O DRAG
+  // ----------------------------------------------------
+
+  professionalsViewport.addEventListener(
+    'pointerup',
+    () => {
+
+      if(!dragging) return;
+
+
+      dragging = false;
+
+      professionalsViewport.classList.remove(
+        'dragging'
+      );
+
+
+      const difference =
+        dragCurrentX - dragStartX;
+
+
+      /*
+       * Distância mínima necessária para trocar
+       * de profissional.
+       */
+
+      if(Math.abs(difference) > 60){
+
+
+        // --------------------------------------------
+        // ARRASTOU PARA A ESQUERDA
+        // --------------------------------------------
+
+        if(
+          difference < 0 &&
+          professionalIndex <
+          professionalCards.length - 1
+        ){
+
+          professionalIndex++;
+
+        }
+
+
+        // --------------------------------------------
+        // ARRASTOU PARA A DIREITA
+        // --------------------------------------------
+
+        else if(
+          difference > 0 &&
+          professionalIndex > 0
+        ){
+
+          professionalIndex--;
+
+        }
+
+      }
+
+
+      updateProfessionalsCarousel();
+
+    }
+  );
+
+
+  // ====================================================
+  // CANCELAMENTO DO DRAG
+  // ====================================================
+
+  professionalsViewport.addEventListener(
+    'pointercancel',
+    () => {
+
+      dragging = false;
+
+      professionalsViewport.classList.remove(
+        'dragging'
+      );
+
+      updateProfessionalsCarousel();
+
+    }
+  );
+
+
+  // ====================================================
+  // REDIMENSIONAMENTO DA TELA
+  // ====================================================
+
+  window.addEventListener(
+    'resize',
+    () => {
+
+      updateProfessionalsCarousel();
+
+    },
+    { passive:true }
+  );
+
+
+  // ====================================================
+  // ESTADO INICIAL
+  // ====================================================
 
   updateProfessionalsCarousel();
-});
 
-
-professionalsViewport.addEventListener('pointercancel', () => {
-
-  dragging = false;
-
-  professionalsViewport.classList.remove('dragging');
-
-  updateProfessionalsCarousel();
-});
-
-
-// Se a largura da tela mudar,
-// recalcula a posição corretamente
-window.addEventListener('resize', () => {
-
-  updateProfessionalsCarousel();
-
-}, { passive:true });
-
-
-// Estado inicial
-updateProfessionalsCarousel();
+}
 </script>
 
 </body>
