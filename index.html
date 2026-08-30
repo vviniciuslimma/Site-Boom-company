@@ -552,28 +552,115 @@ max-width: 800px;}
 }
 
   /* ---------- videos ---------- */
-  .video-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:64px;}
-  @media(max-width:900px){.video-cards{grid-template-columns:1fr;}}
+   /* ---------- vídeos ---------- */
+  .video-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:64px;
+  }
+
+  @media(max-width:900px){
+    .video-cards{
+      grid-template-columns:1fr;
+    }
+  }
+
   .video-card{
-    border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--bg-2);
-    transition:transform .4s var(--ease), border-color .4s;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--bg-2);
+    transition:
+      transform .4s var(--ease),
+      border-color .4s;
   }
-  .video-card:hover{transform:translateY(-6px); border-color:rgba(244,243,239,.25);}
-  .video-thumb{position:relative; aspect-ratio:16/9; overflow:hidden;}
-  .video-card:hover .video-thumb .media-placeholder{transform:scale(1.06);}
+
+  .video-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(244,243,239,.25);
+  }
+
+  /* Área da thumbnail */
+  .video-thumb{
+    position:relative;
+    aspect-ratio:16/9;
+    overflow:hidden;
+    background:var(--bg-2);
+  }
+
+  /* Imagem da thumbnail */
+  .video-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    transition:transform .6s var(--ease);
+  }
+
+  /* Zoom da thumbnail ao passar o mouse */
+  .video-card:hover .video-thumb img{
+    transform:scale(1.06);
+  }
+
+  /* Botão de play */
   .play-btn{
-    position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
-    background:rgba(17,17,17,0.55); backdrop-filter:blur(6px);
-    display:flex; align-items:center; justify-content:center; z-index:2;
-    border:1px solid rgba(244,243,239,0.35); transition:transform .35s var(--ease), background .35s;
+    position:absolute;
+    inset:0;
+    margin:auto;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:rgba(17,17,17,0.55);
+    backdrop-filter:blur(6px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+    border:1px solid rgba(244,243,239,0.35);
+    transition:
+      transform .35s var(--ease),
+      background .35s;
   }
-  .video-card:hover .play-btn{transform:scale(1.12); background:var(--brand);}
-  .video-meta{padding:18px 20px 22px;}
-  .video-tag{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; display:inline-block;}
-  .video-tag.jump{color:var(--jump);}
-  .video-tag.dance{color:var(--dance);}
-  .video-tag.brand{color:var(--brand);}
-  .video-title{font-size:16px; font-weight:700; line-height:1.35;}
+
+  /* Efeito no play ao passar o mouse */
+  .video-card:hover .play-btn{
+    transform:scale(1.12);
+    background:var(--brand);
+  }
+
+  /* Informações do vídeo */
+  .video-meta{
+    padding:18px 20px 22px;
+  }
+
+  .video-tag{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    display:inline-block;
+  }
+
+  .video-tag.jump{
+    color:var(--jump);
+  }
+
+  .video-tag.dance{
+    color:var(--dance);
+  }
+
+  .video-tag.brand{
+    color:var(--brand);
+  }
+
+  .video-title{
+    font-size:16px;
+    font-weight:700;
+    line-height:1.35;
+  }
 
   /* ---------- comercial ---------- */
   .commercial{
@@ -1220,39 +1307,99 @@ Personal trainer e coreógrafa na empresa boom company.
 <section class="section-pad" id="videos">
   <div class="container">
     <p class="eyebrow reveal">04 — Conteúdo</p>
-    <h2 class="display reveal" style="font-size:clamp(38px,6vw,80px); margin-top:18px;">ASSISTA.<br>MOVIMENTE-SE.<br>REPITA.</h2>
+
+    <h2 class="display reveal" style="font-size:clamp(38px,6vw,80px); margin-top:18px;">
+      ASSISTA.<br>MOVIMENTE-SE.<br>REPITA.
+    </h2>
 
     <div class="video-cards">
-      <a href="#" class="video-card reveal" aria-label="Assistir vídeo no YouTube (link provisório)">
+
+      <!-- VÍDEO 01 — BOOM DANCE -->
+      <a 
+        href="https://youtu.be/KM42j9D1Sxs?si=I1pgd9JOfxNG6paV" 
+        class="video-card reveal" 
+        target="_blank"
+        rel="noopener"
+        aria-label="Assistir vídeo Boom Dance no YouTube"
+      >
         <div class="video-thumb">
-          <div class="media-placeholder"><span>THUMBNAIL — VÍDEO</span></div>
+
+          <!-- IMAGEM / THUMBNAIL DO VÍDEO -->
+          <img 
+            src="boom.dance.video.jpeg"
+            alt="Thumbnail Boom Dance — Coreografia As Cowgirls"
+          >
+
           <div class="play-btn">▶️</div>
         </div>
-        <div class="video-meta">
-          <span class="video-tag jump">Boom Jump</span>
-          <p class="video-title">Aula completa — nível iniciante <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
-        </div>
-      </a>
-      <a href="#" class="video-card reveal" aria-label="Assistir vídeo no YouTube (link provisório)">
-        <div class="video-thumb">
-          <div class="media-placeholder"><span>THUMBNAIL — VÍDEO</span></div>
-          <div class="play-btn">▶️</div>
-        </div>
+
         <div class="video-meta">
           <span class="video-tag dance">Boom Dance</span>
-          <p class="video-title">Coreografia da semana <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
+
+          <p class="video-title">
+            Coreografia As Cowgirls
+          </p>
         </div>
       </a>
-      <a href="#" class="video-card reveal" aria-label="Assistir vídeo no YouTube (link provisório)">
+
+
+      <!-- VÍDEO 02 — BOOM JUMP -->
+      <a 
+        href="https://youtu.be/4X6XQB9b3ho?si=t8TBI5z1YVEgToiv" 
+        class="video-card reveal" 
+        target="_blank"
+        rel="noopener"
+        aria-label="Assistir vídeo Boom Jump no YouTube"
+      >
         <div class="video-thumb">
-          <div class="media-placeholder"><span>THUMBNAIL — VÍDEO</span></div>
+
+          <!-- IMAGEM / THUMBNAIL DO VÍDEO -->
+          <img 
+            src="boom.jump.video.jpeg"
+            alt="Thumbnail Boom Jump — Aula completa"
+          >
+
           <div class="play-btn">▶️</div>
         </div>
+
         <div class="video-meta">
-          <span class="video-tag brand">Bastidores</span>
-          <p class="video-title">Um dia dentro da Boom <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
+          <span class="video-tag jump">Boom Jump</span>
+
+          <p class="video-title">
+            Aula completa Boom Jump
+          </p>
         </div>
       </a>
+
+
+      <!-- VÍDEO 03 — BOOM DANCE -->
+      <a 
+        href="https://youtu.be/c4l8uk0nxck?si=yU75W8n9x-ds0klx" 
+        class="video-card reveal" 
+        target="_blank"
+        rel="noopener"
+        aria-label="Assistir vídeo Boom Dance no YouTube"
+      >
+        <div class="video-thumb">
+
+          <!-- IMAGEM / THUMBNAIL DO VÍDEO -->
+          <img 
+            src="boom.dance.video.0.2.jpeg"
+            alt="Thumbnail Boom Dance — Não Para"
+          >
+
+          <div class="play-btn">▶️</div>
+        </div>
+
+        <div class="video-meta">
+          <span class="video-tag dance">Boom Dance</span>
+
+          <p class="video-title">
+            COREOGRAFIA - NÃO PARA
+          </p>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
