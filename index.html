@@ -288,11 +288,8 @@ max-width: 800px;}
   .btn-modality:hover .arrow{transform:translateX(5px);}
 
 
-  /* ---------- experiênciia ---------- */
- /* ---------- profissionais / carrossel ---------- */
-
-/* ---------- experiência ---------- */
-/* ---------- profissionais / carrossel ---------- */
+/* ---------- EXPERIÊNCIA ---------- */
+/* ---------- PROFISSIONAIS / CARROSSEL ---------- */
 
 .professionals-carousel{
   position:relative;
@@ -317,13 +314,11 @@ max-width: 800px;}
   will-change:transform;
 }
 
-/* ---------- CARD ---------- */
-
 .professional-card{
   flex:0 0 calc(82% - 12px);
   display:grid;
   grid-template-columns:minmax(280px, .9fr) 1.1fr;
-  height:560px;
+  min-height:560px;
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
   background:var(--bg-1);
@@ -334,8 +329,7 @@ max-width: 800px;}
 
 .professional-photo{
   position:relative;
-  width:100%;
-  height:560px;
+  min-height:560px;
   overflow:hidden;
   background:var(--bg-2);
 }
@@ -359,10 +353,10 @@ max-width: 800px;}
 .professional-photo-placeholder{
   width:100%;
   height:100%;
+  min-height:560px;
   display:flex;
   align-items:center;
   justify-content:center;
-
   background:
     repeating-linear-gradient(
       135deg,
@@ -376,7 +370,6 @@ max-width: 800px;}
       var(--bg-2),
       var(--bg-3)
     );
-
   color:var(--ink-dim);
   font-size:11px;
   font-weight:600;
@@ -389,29 +382,27 @@ max-width: 800px;}
 .professional-info{
   display:flex;
   flex-direction:column;
-  justify-content:flex-end;
+  justify-content:flex-start;
   align-items:flex-start;
-
-  height:560px;
   padding:56px;
+  min-height:560px;
+  box-sizing:border-box;
 }
 
-/* Número do profissional
-   Mantido apenas para cards que utilizarem esse elemento */
+/* Número do profissional */
 
 .professional-number{
   color:var(--brand);
   font-size:12px;
   font-weight:700;
   letter-spacing:.18em;
-  margin-bottom:auto;
+  margin:0 0 56px 0;
 }
 
-/* Função */
+/* Cargo */
 
 .professional-role{
   margin:0 0 16px 0;
-
   color:var(--ink-dim);
   font-size:11px;
   font-weight:700;
@@ -426,7 +417,6 @@ max-width: 800px;}
   font-size:clamp(52px,6vw,92px);
   line-height:.95;
   text-transform:uppercase;
-
   margin:0 0 28px 0;
 }
 
@@ -434,31 +424,25 @@ max-width: 800px;}
 
 .professional-description{
   max-width:470px;
-
   margin:0;
-
   color:#c9c7c1;
   font-size:15px;
   line-height:1.75;
 }
 
-/* Instagram */
+/* Instagram / rede social */
 
 .professional-social{
   display:inline-flex;
   align-items:center;
   gap:8px;
-
   margin-top:28px;
-
   width:max-content;
-
   color:var(--ink);
   font-size:12px;
   font-weight:700;
   letter-spacing:.08em;
   text-transform:uppercase;
-
   transition:color .3s;
 }
 
@@ -466,13 +450,12 @@ max-width: 800px;}
   color:var(--brand);
 }
 
-/* ---------- CONTROLES ---------- */
+/* ---------- CONTROLES DO CARROSSEL ---------- */
 
 .carousel-bottom{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   margin-top:30px;
   gap:24px;
 }
@@ -481,7 +464,6 @@ max-width: 800px;}
   display:flex;
   align-items:center;
   gap:8px;
-
   font-size:12px;
   font-weight:700;
   letter-spacing:.12em;
@@ -503,16 +485,12 @@ max-width: 800px;}
 .carousel-arrow{
   width:52px;
   height:52px;
-
   border:1px solid var(--line);
   border-radius:10px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:20px;
-
   transition:
     background .3s,
     color .3s,
@@ -531,12 +509,10 @@ max-width: 800px;}
   opacity:.3;
   cursor:default;
   transform:none;
-
   background:transparent;
   border-color:var(--line);
   color:var(--ink);
 }
-
 
 /* ---------- TABLET / MOBILE ---------- */
 
@@ -544,45 +520,31 @@ max-width: 800px;}
 
   .professional-card{
     flex-basis:88%;
-
-    display:grid;
     grid-template-columns:1fr;
-
-    height:auto;
-    min-height:0;
+    min-height:auto;
   }
 
   .professional-photo{
-    width:100%;
-    height:auto;
-    min-height:0;
-
+    min-height:auto;
     aspect-ratio:4/5;
   }
 
   .professional-photo-placeholder{
-    width:100%;
-    height:100%;
     min-height:0;
-
     aspect-ratio:4/5;
   }
 
   .professional-info{
-    height:auto;
-    min-height:360px;
-
     padding:36px 28px;
-
-    justify-content:flex-end;
+    min-height:360px;
+    justify-content:flex-start;
   }
 
   .professional-number{
-    margin-bottom:70px;
+    margin-bottom:40px;
   }
 
 }
-
 
 /* ---------- CELULAR ---------- */
 
@@ -601,9 +563,12 @@ max-width: 800px;}
   }
 
   .professional-info{
-    min-height:360px;
-
     padding:28px 22px 32px;
+    min-height:360px;
+  }
+
+  .professional-number{
+    margin-bottom:36px;
   }
 
   .professional-name{
@@ -617,8 +582,7 @@ max-width: 800px;}
 
 }
 
-
-/* ---------- REDUÇÃO DE MOVIMENTO ---------- */
+/* ---------- ACESSIBILIDADE ---------- */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -628,7 +592,6 @@ max-width: 800px;}
   }
 
 }
-
   /* ---------- videos ---------- */
    /* ---------- vídeos ---------- */
   .video-cards{
