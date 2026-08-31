@@ -442,18 +442,10 @@ max-width: 800px;}
 .professional-info{
   display:flex;
   flex-direction:column;
-
-  /*
-   * IMPORTANTE:
-   * as informações começam sempre no topo.
-   */
   justify-content:flex-start;
   align-items:flex-start;
-
   padding:56px;
-
   min-height:560px;
-
   box-sizing:border-box;
 }
 
@@ -1166,8 +1158,8 @@ max-width: 800px;}
     text-align:center; padding:180px 0 160px; position:relative; overflow:hidden;
     background:radial-gradient(ellipse 60% 60% at 50% 30%, rgba(229,9,20,0.10), transparent 65%);
   }
-  .final-title{font-size:clamp(56px,12vw,168px); letter-spacing:-0.01em;}
-  .final-sub{margin:26px auto 46px; max-width:480px; color:#c9c7c1; font-size:16px;}
+  .final-title{font-size:clamp(56px,12vw,168px); letter-spacing:-0.01em; text-align:center;}
+  .final-sub{margin:26px auto 46px; max-width:480px; color:#c9c7c1; font-size:16px; text-align:center;}
   .final-paths{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
 
   /* ---------- footer ---------- */
@@ -1185,6 +1177,7 @@ max-width: 800px;}
 
   .placeholder-note{font-size:10px; color:var(--ink-dim); opacity:.55; font-style:italic;}
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -1434,8 +1427,7 @@ max-width: 800px;}
               </h3>
 
               <p class="professional-description">
-CEO e coreógrafo da BOOM Company, atua na área de Educação Física desde 2011, especialista em aulas fitness.</p>
-          
+CEO e coreógrafo da BOOM Company, atua na área de Educação Física desde 2011, especialista em aulas fitness.<br><br>
 Com experiência em grandes eventos do segmento, como Fitness Brasil e ENAFs, traz uma trajetória marcada pela experiência prática, criatividade e desenvolvimento de experiências no universo fitness.
               </p>
 
@@ -1816,7 +1808,6 @@ Com experiência em grandes eventos do segmento, como Fitness Brasil e ENAFs, tr
 <!-- ============ CTA FINAL ============ -->
 <section class="final-cta">
   <div class="container">
-    <p class="eyebrow reveal">Pronto?</p>
     <h2 class="final-title display reveal">PRONTO PARA O SEU<br>BOOM?</h2>
     <p class="final-sub reveal">Faça parte da Boom como aluno ou como parceiro de negócio. <span class="placeholder-note">[COPY PROVISÓRIO]</span></p>
     <div class="final-paths reveal">
@@ -1842,6 +1833,7 @@ Com experiência em grandes eventos do segmento, como Fitness Brasil e ENAFs, tr
           <a href="#a-boom">A Boom</a>
           <a href="#modalidades">Modalidades</a>
           <a href="#experiencia">Experiência</a>
+          <a href="#galeria">Galeria</a>
           <a href="#licenciamento">Licencie</a>
         </div>
         <div class="foot-col">
