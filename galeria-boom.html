@@ -87,7 +87,12 @@
   }
   .nav-row{display:flex; align-items:center; justify-content:space-between; gap:24px;}
   .logo{font-family:'Anton',sans-serif; font-size:22px; letter-spacing:0.04em; text-transform:uppercase; display:flex; align-items:center; gap:2px;}
-  .logo span{color:var(--logo-color);}
+  .logo-img{
+  width:72px;
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
   .nav-links{display:flex; align-items:center; gap:36px; list-style:none;}
   .nav-links a{
     font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-dim);
@@ -380,7 +385,13 @@
 <!-- ============ NAVBAR ============ -->
 <header id="siteHeader">
   <div class="container nav-row">
-    <a href="index.html" class="logo">BOOM<span>.</span></a>
+    <a href="#top" class="logo">
+  <img
+    src="boom-company-logo-transparent.png"
+    alt="BOOM Company"
+    class="logo-img"
+  >
+</a>
     
     <a href="index.html#alunos" class="nav-cta">Quero Fazer Parte</a>
     <button class="burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
@@ -573,7 +584,13 @@
   <div class="container">
     <div class="foot-top">
       <div>
-        <a href="index.html" class="logo">BOOM<span>.</span></a>
+        <a href="#top" class="logo">
+  <img
+    src="boom-company-logo-transparent.png"
+    alt="BOOM Company"
+    class="logo-img"
+  >
+</a>
         <p style="margin-top:16px; max-width:280px; font-size:13px; color:var(--ink-dim);">Fitness, dança e movimento. Uma marca, várias formas de fazer parte.</p>
       </div>
       <div class="foot-cols">

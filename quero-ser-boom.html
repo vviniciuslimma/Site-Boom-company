@@ -93,7 +93,12 @@ header{
   letter-spacing:.04em;
   text-transform:uppercase;
 }
-.logo span{color:var(--brand)}
+.logo-img{
+  width:72px;
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
 .nav-links{
   display:flex;
   align-items:center;
@@ -382,7 +387,13 @@ footer{
 
 <header>
   <div class="container nav-row">
-    <a href="index.html" class="logo">BOOM<span>.</span></a>
+   <a href="#top" class="logo">
+  <img
+    src="boom-company-logo-transparent.png"
+    alt="BOOM Company"
+    class="logo-img"
+  >
+</a>
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Início</a></li>
@@ -533,7 +544,13 @@ footer{
 
 <footer>
   <div class="container footer-row">
-    <a href="index.html" class="logo">BOOM<span>.</span></a>
+    <a href="#top" class="logo">
+  <img
+    src="boom-company-logo-transparent.png"
+    alt="BOOM Company"
+    class="logo-img"
+  >
+</a>
     <div class="footer-links">
       <a href="index.html">Início</a>
       <a href="quero-dancar.html">Quero Dançar</a>
