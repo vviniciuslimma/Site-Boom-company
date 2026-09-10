@@ -163,8 +163,6 @@ header{
   background:rgba(244,243,239,.05);
   transform:translateY(-2px);
 }
-.arrow{transition:transform .3s}
-.btn:hover .arrow{transform:translateX(5px)}
 
 /* HERO */
 .hero{
@@ -213,19 +211,12 @@ header{
     linear-gradient(145deg,var(--bg-2),var(--bg-3));
   border:1px solid var(--line);
 }
-.hero-media::after{
-  content:'SUBSTITUIR POR FOTO REAL';
-  position:absolute;
-  left:22px;
-  bottom:22px;
-  font-size:10px;
-  letter-spacing:.14em;
-  color:var(--ink-dim);
-  text-transform:uppercase;
-  border:1px solid var(--line);
-  border-radius:100px;
-  padding:8px 12px;
-  background:rgba(17,17,17,.5);
+.hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
 }
 
 /* SECTIONS */
@@ -401,7 +392,7 @@ footer{
         <li><a href="quero-ser-boom.html">Quero Ser BOOM</a></li>
       </ul>
     </nav>
-    <a href="index.html" class="nav-back">← Voltar</a>
+    <a href="index.html" class="nav-back">Voltar</a>
   </div>
 </header>
 
@@ -422,13 +413,19 @@ footer{
         <div class="hero-actions reveal">
           <!-- TROQUE # PELO LINK REAL DA PLATAFORMA DE CURSO/PAGAMENTO -->
           <a href="#" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-            Conhecer formação <span class="arrow">→</span>
+            Conhecer formação
           </a>
           <a href="#como-funciona" class="btn btn-outline">Como funciona</a>
         </div>
       </div>
 
-      <div class="hero-media reveal" role="img" aria-label="Espaço reservado para foto real de formação ou aula BOOM Dance"></div>
+      <div class="hero-media reveal">
+        <img
+          src="licenca.2.jpeg"
+          alt="Formação BOOM Dance"
+          loading="lazy"
+        >
+      </div>
     </div>
   </section>
 
@@ -535,7 +532,7 @@ footer{
       </p>
       <!-- TROQUE # PELO LINK REAL DA PLATAFORMA -->
       <a href="#" class="btn btn-primary reveal" target="_blank" rel="noopener noreferrer">
-        Começar formação <span class="arrow">→</span>
+        Começar formação
       </a>
       
     </div>
