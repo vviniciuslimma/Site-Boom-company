@@ -213,19 +213,12 @@ header{
     linear-gradient(145deg,var(--bg-2),var(--bg-3));
   border:1px solid var(--line);
 }
-.hero-media::after{
-  content:'SUBSTITUIR POR FOTO REAL';
-  position:absolute;
-  left:22px;
-  bottom:22px;
-  font-size:10px;
-  letter-spacing:.14em;
-  color:var(--ink-dim);
-  text-transform:uppercase;
-  border:1px solid var(--line);
-  border-radius:100px;
-  padding:8px 12px;
-  background:rgba(17,17,17,.5);
+.hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
 }
 
 /* SECTIONS */
@@ -428,7 +421,13 @@ footer{
         </div>
       </div>
 
-      <div class="hero-media reveal" role="img" aria-label="Espaço reservado para foto real de uma aula BOOM Dance"></div>
+      <div class="hero-media reveal">
+        <img
+          src="danca.1.jpeg"
+          alt="Aula BOOM Dance"
+          loading="lazy"
+        >
+      </div>
     </div>
   </section>
 
